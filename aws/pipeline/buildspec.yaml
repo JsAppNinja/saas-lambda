@@ -1,12 +1,16 @@
 version: 0.2
+
 phases:
   install:
-    runtime-version:
+    runtime-versions:
       nodejs: 10
+
+    commands:
+      - npm install --only=prod
 
   build:
     commands:
-      - npm install
+      - npm run build
       - aws cloudformation package --template-file sam.yaml --s3-bucket ${S3_BUCKET}/augmentt-backend --output-template lambda.yaml
 
 artifacts:
