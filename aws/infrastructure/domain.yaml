@@ -1,0 +1,51 @@
+Description: Augmentt Backend Domain
+
+Parameters:
+  Environment:
+    Type: String
+
+Resources:
+  AugmenttBackendGatewayDomain:
+    Type: AWS::ApiGateway::DomainName
+    Properties:
+      EndpointConfiguration:
+        Types: [REGIONAL]
+      RegionalCertificateArn:
+        Fn::ImportValue: !Sub "${Environment}WildcardCertificate"
+      DomainName:
+        Fn::Join:
+          - ''
+          - - api
+            - Fn::ImportValue: !Sub "${Environment}AugmentSubdomainSuffix"
+
+  AugmenttBackendBasePathMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Properties:
+      DomainName: !Ref AugmenttBackendGatewayDomain
+      RestApiId: !ImportValue AugmenttBackendGatewayName
+      Stage: Prod
+
+  AugmenttBackendApiDomain:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneId: !ImportValue HostedZone
+      RecordSets:
+        - Name:
+            Fn::Join:
+              - ''
+              - - app
+                - Fn::ImportValue: !Sub "${Environment}AugmentSubdomainSuffix"
+          Type: A
+          AliasTarget:
+            DNSName: !GetAtt AugmenttBackendGatewayDomain.RegionalDomainName
+            HostedZoneId: !GetAtt AugmenttBackendGatewayDomain.RegionalHostedZoneId
+
+Outputs:
+  AugmenttBackendDomain:
+    Value:
+      Fn::Join:
+        - ''
+        - - app
+          - Fn::ImportValue: !Sub "${Environment}AugmentSubdomainSuffix"
+    Export:
+      Name: AugmenttBackendDomain

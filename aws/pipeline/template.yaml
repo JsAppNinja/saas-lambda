@@ -1,0 +1,154 @@
+Description: AWS CodePipeline for Augment Backend
+
+Parameters:
+  Environment:
+    Type: String
+
+Resources:
+
+  CodeBuild:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Artifacts:
+        Type: CODEPIPELINE
+      Environment:
+        ComputeType: BUILD_GENERAL1_SMALL
+        EnvironmentVariables:
+          - Name: S3_BUCKET
+            Value: !ImportValue SourceCodeStorage
+        Image: aws/codebuild/amazonlinux2-x86_64-standard:2.0
+        PrivilegedMode: true
+        Type: LINUX_CONTAINER
+      ServiceRole: !ImportValue CodeBuildRoleArn
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: aws/pipeline/buildspec.yaml
+      TimeoutInMinutes: 10
+
+  CodePipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      ArtifactStore:
+        Location: !ImportValue SourceCodeStorage
+        Type: S3
+      Name: augmentt-backend
+      RestartExecutionOnUpdate: false
+      RoleArn: !ImportValue CodePipelineRoleArn
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: Source
+              ActionTypeId:
+                Category: Source
+                Owner: ThirdParty
+                Provider: GitHub
+                Version: 1
+              Configuration:
+                Owner: Augmentt-dev
+                Repo: augmentt-backend
+                Branch:
+                  Fn::ImportValue: !Sub "${Environment}GitHubBranch"
+                OAuthToken: !ImportValue GitHubOAuthToken
+                PollForSourceChanges: false
+              OutputArtifacts:
+                - Name: source-code
+
+        - Name: Build
+          Actions:
+            - ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: 1
+              Configuration:
+                ProjectName: !Ref CodeBuild
+                PrimarySource: source-code
+              InputArtifacts:
+                - Name: source-code
+              Name: CodeBuild
+              OutputArtifacts:
+                - Name: package
+
+        - Name: Deploy
+          Actions:
+#            - Name: Infrastructure
+#              InputArtifacts:
+#                - Name: source-code
+#              ActionTypeId:
+#                Category: Deploy
+#                Owner: AWS
+#                Version: 1
+#                Provider: CloudFormation
+#              OutputArtifacts: []
+#              Configuration:
+#                StackName: !Sub ${Environment}-augmentt-backend-infrastructure
+#                ActionMode: CREATE_UPDATE
+#                RoleArn: !ImportValue CloudFormationRoleArn
+#                TemplatePath: source-code::aws/infrastructure/template.yaml
+#              RunOrder: 1
+
+            - Name: PrepareDeploy
+              InputArtifacts:
+                - Name: package
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Version: 1
+                Provider: CloudFormation
+              OutputArtifacts: []
+              Configuration:
+                StackName: !Sub ${Environment}-augmentt-backend-service
+                ActionMode: CHANGE_SET_REPLACE
+                RoleArn: !ImportValue CloudFormationRoleArn
+                ChangeSetName: pipeline-changeset
+                Capabilities: CAPABILITY_IAM
+                TemplatePath: package::sam.yaml
+              RunOrder: 2
+
+            - Name: ExecuteDeploy
+              InputArtifacts: []
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Version: 1
+                Provider: CloudFormation
+              OutputArtifacts: []
+              Configuration:
+                StackName: !Sub ${Environment}-augmentt-backend-service
+                ActionMode: CHANGE_SET_EXECUTE
+                ChangeSetName: pipeline-changeset
+              RunOrder: 3
+
+            - Name: Domain
+              InputArtifacts:
+                - Name: source-code
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Version: 1
+                Provider: CloudFormation
+              OutputArtifacts: []
+              Configuration:
+                StackName: !Sub ${Environment}-augmentt-backend-domain
+                ActionMode: CREATE_UPDATE
+                RoleArn: !ImportValue CloudFormationRoleArn
+                TemplatePath: source-code::aws/infrastructure/domain.yaml
+                ParameterOverrides: !Sub |
+                  {
+                    "Environment": "${Environment}"
+                  }
+              RunOrder: 4
+
+  GithubWebhook:
+    Type: AWS::CodePipeline::Webhook
+    Properties:
+      Authentication: GITHUB_HMAC
+      AuthenticationConfiguration:
+        SecretToken: !ImportValue GitHubOAuthToken
+      RegisterWithThirdParty: 'true'
+      Filters:
+        - JsonPath: "$.ref"
+          MatchEquals: refs/heads/{Branch}
+      TargetPipeline: !Ref CodePipeline
+      TargetAction: Source
+      TargetPipelineVersion: !GetAtt CodePipeline.Version

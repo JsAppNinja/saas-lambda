@@ -1,0 +1,64 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: AWS Lambda for Augmentt Backend
+
+Globals:
+  Api:
+    EndpointConfiguration: REGIONAL
+
+Resources:
+
+  Hello:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: hello.js
+      Runtime: nodejs10.x
+      CodeUri: ./src
+      MemorySize: 512
+      Timeout: 30
+      VpcConfig:
+        SecurityGroupIds:
+          - !Ref SecurityGroup
+        SubnetIds:
+          - !ImportValue PrivateSubnetOne
+          - !ImportValue PrivateSubnetTwo
+      Environment:
+        Variables:
+          MyVariable: 'MyVariableValue'
+      Policies:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Events:
+        RootResource:
+          Type: Api
+          Properties:
+            Path: /
+            Method: ANY
+        ProxyResource:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Lambda Security Group allowing full egress
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: -1
+          IpProtocol: -1
+          ToPort: -1
+      VpcId: !ImportValue VpcId
+
+Outputs:
+  AugmenttBackendAddress:
+    Description: Augmentt Backend Api Gateway Address
+    Value: !Sub '${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com'
+    Export:
+      Name: AugmenttBackendAddress
+
+  AugmenttBackendGatewayName:
+    Description: Name of the Augmentt Backend Api Gateway
+    Value: !Ref ServerlessRestApi
+    Export:
+      Name: AugmenttBackendGatewayName
