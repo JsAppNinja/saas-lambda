@@ -18,16 +18,11 @@
     "watch:hello": "sls invoke local --watch --function hello --path fixtures/event.json"
   },
   "devDependencies": {
-    "@babel/core": "7.6.0",
-    "@babel/preset-env": "7.6.0",
-    "@babel/preset-typescript": "^7.6.0",
     "@types/jest": "^24.0.18",
     "@typescript-eslint/eslint-plugin": "^2.2.0",
     "@typescript-eslint/parser": "^2.2.0",
     "aws-sdk": "^2.529.0",
-    "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.9.0",
-    "babel-loader": "^8.0.6",
     "eslint": "^6.3.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.3.0",
@@ -41,11 +36,12 @@
     "lint-staged": "^9.2.5",
     "nodemon": "^1.19.2",
     "prettier": "^1.18.2",
-    "ts-jest": "^24.0.2",
-    "ts-loader": "^6.1.0",
-    "typescript": "^3.6.3"
+    "ts-jest": "^24.0.2"
   },
   "dependencies": {
+    "@babel/core": "7.6.0",
+    "@babel/preset-env": "7.6.0",
+    "@babel/preset-typescript": "^7.6.0",
     "@types/aws-lambda": "^8.10.31",
     "@types/node": "^12.7.5",
     "debug": "^4.1.1",
@@ -56,7 +52,11 @@
     "serverless-prune-plugin": "^1.4.1",
     "serverless-webpack": "^5.3.1",
     "webpack": "^4.39.3",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-node-externals": "^1.7.2",
+    "ts-loader": "^6.1.0",
+    "typescript": "^3.6.3",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-loader": "^8.0.6"
   },
   "husky": {
     "hooks": {
