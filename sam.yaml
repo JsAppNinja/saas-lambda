@@ -27,6 +27,7 @@ Resources:
           MyVariable: 'MyVariableValue'
       Policies:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/AWSLambdaInvocation-DynamoDB
       Events:
         RootResource:
           Type: Api
