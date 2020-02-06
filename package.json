@@ -15,7 +15,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "build": "sls webpack --out dist",
-    "watch:hello": "sls invoke local --watch --function hello --path fixtures/event.json"
+    "watch:hello": "sls invoke local --watch --function hello --path fixtures/event.json",
+    "aws:build": "webpack --config webpack.aws.js"
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
@@ -36,7 +37,13 @@
     "lint-staged": "^9.2.5",
     "nodemon": "^1.19.2",
     "prettier": "^1.18.2",
-    "ts-jest": "^24.0.2"
+    "ts-jest": "^24.0.2",
+    "serverless": "^1.51.0",
+    "serverless-dotenv-plugin": "^2.1.1",
+    "serverless-offline": "^5.10.1",
+    "serverless-plugin-warmup": "^4.7.0-rc.1",
+    "serverless-prune-plugin": "^1.4.1",
+    "serverless-webpack": "^5.3.1"
   },
   "dependencies": {
     "@babel/core": "7.6.0",
@@ -44,19 +51,14 @@
     "@babel/preset-typescript": "^7.6.0",
     "@types/aws-lambda": "^8.10.31",
     "@types/node": "^12.7.5",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-loader": "^8.0.6",
     "debug": "^4.1.1",
-    "serverless": "^1.51.0",
-    "serverless-dotenv-plugin": "^2.1.1",
-    "serverless-offline": "^5.10.1",
-    "serverless-plugin-warmup": "^4.7.0-rc.1",
-    "serverless-prune-plugin": "^1.4.1",
-    "serverless-webpack": "^5.3.1",
-    "webpack": "^4.39.3",
-    "webpack-node-externals": "^1.7.2",
     "ts-loader": "^6.1.0",
     "typescript": "^3.6.3",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-loader": "^8.0.6"
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.10",
+    "webpack-node-externals": "^1.7.2"
   },
   "husky": {
     "hooks": {
