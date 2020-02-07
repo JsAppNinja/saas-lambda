@@ -64,3 +64,63 @@ export function corsSuccessResponse(json: IJSON) {
     allowCORS: true,
   });
 }
+
+export function ResourceNotFoundResponse(json: IJSON) {
+  return lambdaResponse({
+    json,
+    statusCode: 404,
+  });
+}
+
+export function corsResourceNotFoundResponse(json: IJSON) {
+  return lambdaResponse({
+    json,
+    statusCode: 404,
+    allowCORS: true,
+  });
+}
+
+export function ResourceUpdatedResponse(json: IJSON) {
+  return lambdaResponse({
+    json,
+    statusCode: 204,
+  });
+}
+
+export function corsResourceUpdatedResponse(json: IJSON) {
+  return lambdaResponse({
+    json,
+    statusCode: 204,
+    allowCORS: true,
+  });
+}
+
+export function InvalidResponse(json: IJSON) {
+  return lambdaResponse({
+    json,
+    statusCode: 400,
+  });
+}
+
+export function corsInvalidResponse(json: IJSON) {
+  return lambdaResponse({
+    json,
+    statusCode: 400,
+    allowCORS: true,
+  });
+}
+
+export function AuthDeniedResponse(json: IJSON) {
+  return lambdaResponse({
+    json,
+    statusCode: 403,
+  });
+}
+
+export function corsAuthDeniedResponse(json: IJSON) {
+  return lambdaResponse({
+    json,
+    statusCode: 403,
+    allowCORS: true,
+  });
+}
