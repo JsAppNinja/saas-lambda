@@ -28,7 +28,7 @@ Resources:
   AugmenttBackendApiDomain:
     Type: AWS::Route53::RecordSetGroup
     Properties:
-      HostedZoneId: !ImportValue Zone
+      HostedZoneId: !ImportValue AugmentZone
       RecordSets:
         - Name:
             Fn::Join:
