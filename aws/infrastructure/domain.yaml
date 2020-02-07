@@ -33,7 +33,7 @@ Resources:
         - Name:
             Fn::Join:
               - ''
-              - - app
+              - - api
                 - Fn::ImportValue: !Sub "${Environment}AugmentSubdomainSuffix"
           Type: A
           AliasTarget:
@@ -45,7 +45,7 @@ Outputs:
     Value:
       Fn::Join:
         - ''
-        - - app
+        - - api
           - Fn::ImportValue: !Sub "${Environment}AugmentSubdomainSuffix"
     Export:
       Name: AugmenttBackendDomain
