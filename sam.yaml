@@ -24,7 +24,7 @@ Resources:
           - !ImportValue PrivateSubnetTwo
       Environment:
         Variables:
-          MyBucket: !Ref MyBucket
+          MyVar: VariableValue
       Policies:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
         - arn:aws:iam::aws:policy/AWSLambdaInvocation-DynamoDB
@@ -51,11 +51,6 @@ Resources:
           IpProtocol: -1
           ToPort: -1
       VpcId: !ImportValue VpcId
-
-  MyBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      AccessControl: Private
 
 Outputs:
   AugmenttBackendAddress:
