@@ -1,4 +1,5 @@
-import { successResponse, runWarm } from './utils';
+// import { successResponse, runWarm } from './utils';
+const { successResponse, runWarm } = require('./utils');
 
 const helloTs: Function = async (event: AWSLambda.APIGatewayEvent) => {
   // successResponse handles wrapping the response in an API Gateway friendly

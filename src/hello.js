@@ -1,4 +1,5 @@
-import { successResponse, runWarm } from './utils';
+// import { successResponse, runWarm } from './utils';
+const { successResponse, runWarm } = require('./utils');
 
 const hello = async event => {
   // successResponse handles wrapping the response in an API Gateway friendly

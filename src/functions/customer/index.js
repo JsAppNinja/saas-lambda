@@ -1,6 +1,7 @@
 // const metaHandler = require('./handlers/meta').handler;
 // const ACTION = require('./constants');
-import { successResponse } from '../../utils';
+// import { successResponse } from '../../utils';
+const { successResponse } = require('../../utils');
 
 module.exports.handler = async event => {
   // console.log(JSON.stringify(event, null, 2));
