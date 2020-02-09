@@ -1,9 +1,7 @@
 // import { successResponse, runWarm } from './utils';
-const { successResponse, runWarm } = require('./utils');
+const { successResponse } = require('./utils');
 
-const hello = async event => {
-  // successResponse handles wrapping the response in an API Gateway friendly
-  // format (see other responses, including CORS, in `./utils/lambda-response.js)
+exports.handler = async event => {
   const response = successResponse({
     message: 'Go Serverless! Your function executed successfully!',
     input: event,
@@ -11,7 +9,3 @@ const hello = async event => {
 
   return response;
 };
-
-// runWarm function handles pings from the scheduler so you don't
-// have to put that boilerplate in your function.
-export default runWarm(hello);
