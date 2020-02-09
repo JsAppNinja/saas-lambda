@@ -8,7 +8,7 @@ Globals:
 
 Resources:
 
-  Customer:
+  Index:
     Type: AWS::Serverless::Function
     Properties:
       Handler: src/functions/index.handler
