@@ -8,10 +8,10 @@ Globals:
 
 Resources:
 
-  Hello:
+  Customer:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/hello.handler
+      Handler: src/functions/customer/index.handler
       Runtime: nodejs10.x
       CodeUri: .
       MemorySize: 512

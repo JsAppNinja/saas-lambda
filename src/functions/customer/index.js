@@ -1,11 +1,6 @@
-// const metaHandler = require('./handlers/meta').handler;
-// const ACTION = require('./constants');
-// import { successResponse } from '../../utils';
-const { successResponse } = require('../../utils');
+const { successResponse } = require('../../utils/lambda-response');
 
-module.exports.handler = async event => {
-  // console.log(JSON.stringify(event, null, 2));
-  // Consider action
+exports.handler = async event => {
   const response = successResponse({
     message: 'Go Serverless! Your function executed successfully!',
     input: event,

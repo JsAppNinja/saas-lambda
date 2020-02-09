@@ -1,7 +1,6 @@
-// import hello from './hello';
-const { successResponse } = require('./utils');
+const { successResponse } = require('../../utils/lambda-response');
 
-describe('hello', () => {
+describe('index', () => {
   it('executes as expected', () => {
     const response = successResponse({
       message: 'Go Serverless! Your function executed successfully!',

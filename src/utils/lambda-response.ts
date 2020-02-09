@@ -35,14 +35,14 @@ function lambdaResponse({
   return response;
 }
 
-export function errorResponse(json: IJSON) {
+function errorResponse(json: IJSON) {
   return lambdaResponse({
     json,
     statusCode: 500,
   });
 }
 
-export function corsErrorResponse(json: IJSON) {
+function corsErrorResponse(json: IJSON) {
   return lambdaResponse({
     json,
     statusCode: 500,
@@ -50,14 +50,14 @@ export function corsErrorResponse(json: IJSON) {
   });
 }
 
-export function successResponse(json: IJSON) {
+function successResponse(json: IJSON) {
   return lambdaResponse({
     json,
     statusCode: 200,
   });
 }
 
-export function corsSuccessResponse(json: IJSON) {
+function corsSuccessResponse(json: IJSON) {
   return lambdaResponse({
     json,
     statusCode: 200,
@@ -65,14 +65,14 @@ export function corsSuccessResponse(json: IJSON) {
   });
 }
 
-export function ResourceNotFoundResponse(json: IJSON) {
+function ResourceNotFoundResponse(json: IJSON) {
   return lambdaResponse({
     json,
     statusCode: 404,
   });
 }
 
-export function corsResourceNotFoundResponse(json: IJSON) {
+function corsResourceNotFoundResponse(json: IJSON) {
   return lambdaResponse({
     json,
     statusCode: 404,
@@ -80,14 +80,14 @@ export function corsResourceNotFoundResponse(json: IJSON) {
   });
 }
 
-export function ResourceUpdatedResponse(json: IJSON) {
+function ResourceUpdatedResponse(json: IJSON) {
   return lambdaResponse({
     json,
     statusCode: 204,
   });
 }
 
-export function corsResourceUpdatedResponse(json: IJSON) {
+function corsResourceUpdatedResponse(json: IJSON) {
   return lambdaResponse({
     json,
     statusCode: 204,
@@ -95,14 +95,14 @@ export function corsResourceUpdatedResponse(json: IJSON) {
   });
 }
 
-export function InvalidResponse(json: IJSON) {
+function InvalidResponse(json: IJSON) {
   return lambdaResponse({
     json,
     statusCode: 400,
   });
 }
 
-export function corsInvalidResponse(json: IJSON) {
+function corsInvalidResponse(json: IJSON) {
   return lambdaResponse({
     json,
     statusCode: 400,
@@ -110,17 +110,32 @@ export function corsInvalidResponse(json: IJSON) {
   });
 }
 
-export function AuthDeniedResponse(json: IJSON) {
+function AuthDeniedResponse(json: IJSON) {
   return lambdaResponse({
     json,
     statusCode: 403,
   });
 }
 
-export function corsAuthDeniedResponse(json: IJSON) {
+function corsAuthDeniedResponse(json: IJSON) {
   return lambdaResponse({
     json,
     statusCode: 403,
     allowCORS: true,
   });
 }
+
+module.exports = {
+  errorResponse,
+  corsErrorResponse,
+  successResponse,
+  corsSuccessResponse,
+  ResourceNotFoundResponse,
+  corsResourceNotFoundResponse,
+  ResourceUpdatedResponse,
+  corsResourceUpdatedResponse,
+  InvalidResponse,
+  corsInvalidResponse,
+  AuthDeniedResponse,
+  corsAuthDeniedResponse,
+};
