@@ -11,6 +11,36 @@ Resources:
   Customer:
     Type: AWS::Serverless::Function
     Properties:
+      Handler: src/functions/index.handler
+      Runtime: nodejs10.x
+      CodeUri: .
+      MemorySize: 512
+      Timeout: 30
+      VpcConfig:
+        SecurityGroupIds:
+          - !Ref SecurityGroup
+        SubnetIds:
+          - !ImportValue PrivateSubnetOne
+          - !ImportValue PrivateSubnetTwo
+      Policies:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/AWSLambdaInvocation-DynamoDB
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+      Events:
+        RootResource:
+          Type: Api
+          Properties:
+            Path: /
+            Method: ANY
+        ProxyResource:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+
+  Customer:
+    Type: AWS::Serverless::Function
+    Properties:
       Handler: src/functions/customer/index.handler
       Runtime: nodejs10.x
       CodeUri: .
@@ -33,12 +63,12 @@ Resources:
         RootResource:
           Type: Api
           Properties:
-            Path: /
+            Path: /augmentt/customer
             Method: ANY
         ProxyResource:
           Type: Api
           Properties:
-            Path: /{proxy+}
+            Path: /augmentt/customer/{proxy+}
             Method: ANY
 
   SecurityGroup:
