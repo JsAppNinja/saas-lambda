@@ -16,7 +16,7 @@
     "test:watch": "jest --watch",
     "build": "sls webpack --out dist",
     "watch:hello": "sls invoke local --watch --function hello --path fixtures/event.json",
-    "aws:build": "cp -R node_modules/ src/node_modules && webpack --config webpack.aws.js"
+    "aws:build": "webpack --config webpack.aws.js"
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
