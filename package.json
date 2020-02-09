@@ -1,7 +1,7 @@
 {
   "name": "augmentt-backend",
   "version": "1.0.1",
-  "main": "src/handler.js",
+  "main": "src/hello.js",
   "license": "MIT",
   "scripts": {
     "deploy:env": "sls deploy --stage $NODE_ENV",
