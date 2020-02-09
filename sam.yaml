@@ -11,9 +11,9 @@ Resources:
   Hello:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: hello.js
+      Handler: src/hello.handler
       Runtime: nodejs10.x
-      CodeUri: ./src
+      CodeUri: .
       MemorySize: 512
       Timeout: 30
       VpcConfig:
