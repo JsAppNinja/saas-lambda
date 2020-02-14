@@ -1,10 +1,10 @@
 
 console.log('Function is loading');
 
-const { sendFailResponse } = require('../../../library/response');
-const { tables } = require('../../../library/error/errorMessages');
+const { sendFailResponse } = require('../../../utils/response');
+const { tables } = require('../../../utils/error/errorMessages');
 
-const { getPrompt, addPromptToResponse } = require('../../../library/promptHelper');
+const { getPrompt, addPromptToResponse } = require('../../../utils/promptHelper');
 
 const processEvent = async (event, context) => {
   const { DNIS, ConnectDNIS } = require('../../../models');
@@ -69,4 +69,4 @@ const processEvent = async (event, context) => {
   }
 };
 
-module.exports.handler = require('../../../library/lambdaHelper')(processEvent);
+module.exports.handler = require('../../../utils/lambdaHelper')(processEvent);

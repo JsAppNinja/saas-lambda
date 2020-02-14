@@ -1,5 +1,5 @@
 
-const { tables } = require('../../../library/error/errorMessages');
+const { tables } = require('../../../utils/error/errorMessages');
 
 const checkQueue = async ({
   routingMethod, allocationGroupId, queueSelectionRuleId, queueId, callRoutingTypeId, callerId, cb, applicationId, timeZone,
