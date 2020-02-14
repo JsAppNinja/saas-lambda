@@ -38,7 +38,7 @@ const getPrompt = ({ id, text, ssml }) => {
 
 const processEvent = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
-  console.log(JSON.stringify(event, null, 2));
+  // console.log(JSON.stringify(event, null, 2));
   try {
     const {
       dialed_number, customer_intent, caller_id, current_date_time, whisper_key, type,
@@ -271,7 +271,7 @@ const processEvent = async (event, context) => {
       callerId: caller_id, queueId: queue.Id, dnisId: dnis.Id, applicationId, timeZone, currentDateTime,
     });
 
-    console.log('SpecialHandling:', JSON.stringify(callSpecialHandling, null, 2));
+    // console.log('SpecialHandling:', JSON.stringify(callSpecialHandling, null, 2));
 
     queueArn = queue.ConnectQueue.ARN;
 
@@ -350,7 +350,7 @@ const processEvent = async (event, context) => {
       startTimestamp: event.startTimestamp,
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     if (err.errorMessage) {
       return sendFailResponse(err);
     }
@@ -358,4 +358,4 @@ const processEvent = async (event, context) => {
   }
 };
 
-module.exports.handler = require('../../../library/lambdaHelper')(processEvent);
+module.exports.handler = require('../../../utils/lambdaHelper')(processEvent);

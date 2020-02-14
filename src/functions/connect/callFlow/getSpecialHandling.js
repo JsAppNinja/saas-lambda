@@ -7,7 +7,7 @@ const getSpecialHandlingId = (specialHandlings, timeZone, currentDateTime) => {
   for (let i = 0; i < specialHandlings.length; i++) {
     const specialHandling = specialHandlings[i];
     if (!specialHandling.StartTime && !specialHandling.EndTime) {
-      console.log('Call is falling into indefinite SpecialHandling!!');
+      // console.log('Call is falling into indefinite SpecialHandling!!');
       callSpecialHandlingId = specialHandling.Id;
       break;
     }
@@ -15,7 +15,7 @@ const getSpecialHandlingId = (specialHandlings, timeZone, currentDateTime) => {
     const startDate = moment.tz(specialHandling.StartTime, timeZone);
     const endDate = moment.tz(specialHandling.EndTime, timeZone);
     if (startDate.isBefore(currentDateTime) && currentDateTime.isBefore(endDate)) {
-      console.log('Call is falling into SpecialHandling!!');
+      // console.log('Call is falling into SpecialHandling!!');
       callSpecialHandlingId = specialHandling.Id;
       break;
     }
@@ -51,7 +51,7 @@ const getSpecialHandling = async ({
   let specialNumberSet = false;
 
   const applySpecialHandling = (specialHandling, type) => {
-    console.log('SpecialHandling:', JSON.stringify(specialHandling));
+    // console.log('SpecialHandling:', JSON.stringify(specialHandling));
     if (specialHandling) {
       specialHandlingRule = (specialHandlingRule == undefined) ? specialHandling.Rule : undefined;
       specialHandlingHangup = specialHandlingHangup || specialHandling.Hangup;
@@ -162,7 +162,7 @@ const getSpecialHandling = async ({
   }
 
   const [aniSpecialHandlings, queueSpecialHandlings, dnisSpecialHandlings] = await Promise.all(promises);
-  console.log(JSON.stringify({ aniSpecialHandlings, queueSpecialHandlings, dnisSpecialHandlings }));
+  // console.log(JSON.stringify({ aniSpecialHandlings, queueSpecialHandlings, dnisSpecialHandlings }));
   const queueSpecialHandlingId = getSpecialHandlingId(queueSpecialHandlings.map((queueSh) => queueSh.SpecialHandling), timeZone, currentDateTime);
   const aniSpecialHandlingId = getSpecialHandlingId(aniSpecialHandlings.map((aniSh) => aniSh.SpecialHandling), timeZone, currentDateTime);
   const dnisSpecialHandlingId = getSpecialHandlingId(dnisSpecialHandlings.map((dnisSh) => dnisSh.SpecialHandling), timeZone, currentDateTime);

@@ -14,7 +14,7 @@ module.exports = async (items, timeZone, currentDateTime) => {
     },
   }));
 
-  console.log('dayOfWeek', callTime.format('dddd'));
+  // console.log('dayOfWeek', callTime.format('dddd'));
 
   return Promise.all(operationHoursItemsPromises)
     .then((operationHoursItems) => {
@@ -34,18 +34,18 @@ module.exports = async (items, timeZone, currentDateTime) => {
           const dayOfWeek = dateInTimeZone.day();
           // console.log(JSON.stringify(op), dayOfWeek, item.Id);
           if (dayOfWeek === op.DayOfWeek && item.Id === op.DestinationId) {
-            console.log(JSON.stringify(op), dayOfWeek, item.Id);
+            // console.log(JSON.stringify(op), dayOfWeek, item.Id);
             const startTime = moment.tz(`${date}T${op.StartTime}`, tz);
             const endTime = moment.tz(`${date}T${op.EndTime}`, tz);
             if (startTime.isBefore(callTime) && callTime.isBefore(endTime)) {
-              console.log('Matched Time', tz, date, startTime.format(), callTime.format(), endTime.format());
+              // console.log('Matched Time', tz, date, startTime.format(), callTime.format(), endTime.format());
               return true;
             }
           }
           return false;
         });
 
-        console.log('operationHoursItems:', JSON.stringify(ops, null, 2));
+        // console.log('operationHoursItems:', JSON.stringify(ops, null, 2));
 
         if (!ops.length) {
           return false;
@@ -56,7 +56,7 @@ module.exports = async (items, timeZone, currentDateTime) => {
 
       // console.log('We are after DestinationObjects starts');
 
-      console.log('DestinationObjects:', JSON.stringify(DestinationObjects));
+      // console.log('DestinationObjects:', JSON.stringify(DestinationObjects));
 
       if (!DestinationObjects.length) {
         return;
@@ -65,7 +65,7 @@ module.exports = async (items, timeZone, currentDateTime) => {
       // console.log(DestinationObjects);
 
       DestinationObjects.forEach((item, index) => {
-        console.log(JSON.stringify(item));
+        // console.log(JSON.stringify(item));
 
         if (index === 0) { // first element
           minSequence = item.SeqNum; // set first one like the lowest one
@@ -73,15 +73,15 @@ module.exports = async (items, timeZone, currentDateTime) => {
         }
 
         if (item.SeqNum < minSequence) {
-          console.log('item.seqNum', item.SeqNum);
-          console.log('minSequence', minSequence);
+          // console.log('item.seqNum', item.SeqNum);
+          // console.log('minSequence', minSequence);
 
           minSequence = item.SeqNum;
           lowest = index;
         }
       });
 
-      console.log('Destination:', DestinationObjects[lowest].toJSON());
+      // console.log('Destination:', DestinationObjects[lowest].toJSON());
 
       return DestinationObjects[lowest];
     });
