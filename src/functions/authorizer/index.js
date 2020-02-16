@@ -1,28 +1,26 @@
-exports.handler = function(event, context, callback) {        
-  console.log('Received event:', JSON.stringify(event, null, 2));
-
-  var headers = event.headers;
-  var queryStringParameters = event.queryStringParameters;
-  var pathParameters = event.pathParameters;
-  var stageVariables = event.stageVariables;
+exports.handler = function(event, context, callback) {
+  const headers = event.headers;
+  const queryStringParameters = event.queryStringParameters;
+  const pathParameters = event.pathParameters;
+  const stageVariables = event.stageVariables;
 
   // Parse the input for the parameter values
-  var tmp = event.methodArn.split(':');
-  var apiGatewayArnTmp = tmp[5].split('/');
-  var awsAccountId = tmp[4];
-  var region = tmp[3];
-  var restApiId = apiGatewayArnTmp[0];
-  var stage = apiGatewayArnTmp[1];
-  var method = apiGatewayArnTmp[2];
-  var resource = '/';
+  const tmp = event.methodArn.split(':');
+  const apiGatewayArnTmp = tmp[5].split('/');
+  const awsAccountId = tmp[4];
+  const region = tmp[3];
+  const restApiId = apiGatewayArnTmp[0];
+  const stage = apiGatewayArnTmp[1];
+  const method = apiGatewayArnTmp[2];
+  const resource = '/';
   if (apiGatewayArnTmp[3]) {
     resource += apiGatewayArnTmp[3];
   }
 
   // Perform authorization to return the Allow policy for correct parameters and 
   // the 'Unauthorized' error, otherwise.
-  var authResponse = {};
-  var condition = {};
+  const authResponse = {};
+  const condition = {};
   condition.IpAddress = {};
 
   if (headers.HeaderAuth1 === "headerValue1"
@@ -35,15 +33,15 @@ exports.handler = function(event, context, callback) {
 }
    
 // Help function to generate an IAM policy
-var generatePolicy = function(principalId, effect, resource) {
+const generatePolicy = function(principalId, effect, resource) {
   // Required output:
-  var authResponse = {};
+  const authResponse = {};
   authResponse.principalId = principalId;
   if (effect && resource) {
-    var policyDocument = {};
+    const policyDocument = {};
     policyDocument.Version = '2012-10-17'; // default version
     policyDocument.Statement = [];
-    var statementOne = {};
+    const statementOne = {};
     statementOne.Action = 'execute-api:Invoke'; // default action
     statementOne.Effect = effect;
     statementOne.Resource = resource;
