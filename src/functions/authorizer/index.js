@@ -18,7 +18,7 @@ exports.handler = function(event, context, callback) {
   if (apiGatewayArnTmp[3]) {
     resource += apiGatewayArnTmp[3];
   }
-  
+
   // Perform authorization to return the Allow policy for correct parameters and 
   // the 'Unauthorized' error, otherwise.
   var authResponse = {};
@@ -28,9 +28,9 @@ exports.handler = function(event, context, callback) {
   if (headers.HeaderAuth1 === "headerValue1"
       && queryStringParameters.QueryString1 === "queryValue1"
       && stageVariables.StageVar1 === "stageValue1") {
-      callback(null, generateAllow('me', event.methodArn));
+    callback(null, generateAllow('me', event.methodArn));
   }  else {
-      callback("Unauthorized");
+    callback("Unauthorized");
   }
 }
    
@@ -40,21 +40,21 @@ var generatePolicy = function(principalId, effect, resource) {
   var authResponse = {};
   authResponse.principalId = principalId;
   if (effect && resource) {
-      var policyDocument = {};
-      policyDocument.Version = '2012-10-17'; // default version
-      policyDocument.Statement = [];
-      var statementOne = {};
-      statementOne.Action = 'execute-api:Invoke'; // default action
-      statementOne.Effect = effect;
-      statementOne.Resource = resource;
-      policyDocument.Statement[0] = statementOne;
-      authResponse.policyDocument = policyDocument;
+    var policyDocument = {};
+    policyDocument.Version = '2012-10-17'; // default version
+    policyDocument.Statement = [];
+    var statementOne = {};
+    statementOne.Action = 'execute-api:Invoke'; // default action
+    statementOne.Effect = effect;
+    statementOne.Resource = resource;
+    policyDocument.Statement[0] = statementOne;
+    authResponse.policyDocument = policyDocument;
   }
   // Optional output with custom properties of the String, Number or Boolean type.
   authResponse.context = {
-      "stringKey": "stringval",
-      "numberKey": 123,
-      "booleanKey": true
+    "stringKey": "stringval",
+    "numberKey": 123,
+    "booleanKey": true
   };
   return authResponse;
 }
