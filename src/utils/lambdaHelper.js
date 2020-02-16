@@ -8,10 +8,11 @@ if (process.env.PROXY) {
     },
   });
 }
+
 const KEY_PREFIX = 'ENCRYPTED_';
 const encrypted = {};
 const decrypted = {};
-const kmsEndpoint = process.env.VPC_KMS_ENDPOINT || 'kms.us-east-1.amazonaws.com';
+const kmsEndpoint = process.env.VPC_KMS_ENDPOINT;
 
 module.exports = (handler) => (event, context) => {
   event.startTimestamp = Date.now();
@@ -25,12 +26,11 @@ module.exports = (handler) => (event, context) => {
         }
       }
     });
-  console.log(undecryptedKeys);
+
   if (!undecryptedKeys.length) {
     return handler(event, context);
   }
-  // Decrypt code should run once and variables stored outside of the function
-  // handler so that these are decrypted once per container
+
   const kms = new AWS.KMS({ endpoint: kmsEndpoint });
   const promises = undecryptedKeys.map((key) => kms.decrypt({ CiphertextBlob: new Buffer(encrypted[key], 'base64') }).promise()
     .then((data) => {

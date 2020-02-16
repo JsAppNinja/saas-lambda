@@ -4,15 +4,6 @@ const { addPromptToResponse } = require('./promptHelper');
 const sendFailResponse = (data) => {
   console.log(data);
   throw data;
-  // let response = Object.assign(
-  //   {
-  //     lambda_success: 0,
-  //     function_version: process.env.AWS_LAMBDA_FUNCTION_VERSION
-  //   },
-  //   data
-  // );
-  // console.log(JSON.stringify(response, null, 2));
-  // return response;
 };
 
 const sendWhisperResponse = ({
@@ -51,16 +42,12 @@ const sendSuccessDNISResponse = ({
   response.brand = (dnis.Brand && dnis.Brand.Code) || '';
   response.property = (dnis.Hotel && dnis.Hotel.Code) || '';
   response.screen_pop = dnis.ScreenPop;
-  // response.whisper_arn = whisperItem.ARNurl;
   response.xfer_number = dnis.XferNumberLocal && dnis.XferNumberLocal.replace(/\+/g, '');
   response.xfer_number_country = dnis.XferNumberCountryCode && dnis.XferNumberCountryCode.replace(/\+/g, '');
-  // response.xfer_announcement_arn = xferAnnouncementItem.ARNurl;
-
+  
   response.trapDoorFlag = dnis.TrapDoorFlag;
 
   response.app_name = application.Name;
-  console.log('Application:', JSON.stringify(application));
-  // response.app_announcement_arn = appAnnouncementItem.ARNurl;
   response.app_after_hours_override = application.LocationAfterHoursOverride;
   response.time_zone_name = application.TimeZoneName;
 
@@ -112,23 +99,7 @@ const sendSuccessResponseSQL = ({
     lambda_success: 1,
   };
 
-  // console.log('dnis', dnis);
-  // console.log('queue', queue);
-  // console.log('application', application);
-  // console.log('special', special);
-  // console.log('CallTypeAnnouncementARN', CallTypeAnnouncementARN);
-  // console.log('DestAnnouncement', DestAnnouncement);
-  // console.log('RouteRuleName', RouteRuleName);
-  // console.log('callTime', callTime);
-  // console.log('arnItem', JSON.stringify(arnItem, null, 2))
-  // console.log("language", JSON.stringify(language, null, 2));
-  console.log('MusicPrompt', JSON.stringify(musicPrompt, null, 2));
-  console.log(
-    'QueueAnnouncementPrompt',
-    JSON.stringify(queueAnnouncementPrompt, null, 2),
-  );
   try {
-    // DNIS
     response.dnis = dnis.ConnectDNIS.PhoneNumber;
     response.dnis_language = dnis.Language && dnis.Language.Name;
     response.dnis_language_voice = dnis.Voice;
@@ -139,18 +110,14 @@ const sendSuccessResponseSQL = ({
     response.brand = (dnis.Brand && dnis.Brand.Code) || '';
     response.property = (dnis.Hotel && dnis.Hotel.Code) || '';
     response.screen_pop = dnis.ScreenPop;
-    // response.whisper_arn = whisperItem.ARNurl;
     response.xfer_number = dnis.XferNumberLocal && dnis.XferNumberLocal.replace(/\+/g, '');
     response.xfer_number_country = dnis.XferNumberCountryCode
       && dnis.XferNumberCountryCode.replace(/\+/g, '');
-    // response.xfer_announcement_arn = xferAnnouncementItem.ARNurl;
 
     response.trapDoorFlag = dnis.TrapDoorFlag;
-
     response.app_name = application.Name;
 
     console.log('Application:', JSON.stringify(application));
-    // response.app_announcement_arn = appAnnouncementItem.ARNurl;
     response.app_after_hours_override = application.LocationAfterHoursOverride;
     response.time_zone_name = application.TimeZoneName;
 
@@ -167,13 +134,7 @@ const sendSuccessResponseSQL = ({
       && queue.VoiceMailNumberLocal.replace(/\+/g, '');
     response.voice_mail_country = queue.VoiceMailNumberCountryCode
       && queue.VoiceMailNumberCountryCode.replace(/\+/g, '');
-
-    // response.queue_music_arn = musicItem.length ? musicItem[0].ARNurl : '';
-
-    // response.queue_language = language.Name;
     response.after_hours_handling_rule = queue.AfterHoursHandling;
-
-    // response.special_handling_announcement_arn = specialAnnouncementPrompt; // QUERY IT
 
     response.special_handling_queue_arn = specialQueueArn; // Query IT
     response.special_handling_rule = specialHandlingRule || 'none';
@@ -182,8 +143,6 @@ const sendSuccessResponseSQL = ({
       ? 'Y'
       : 'N';
     response.special_handling_applied_to = specialHandlingAppliedTo;
-
-    // response.route_rule_name = RouteRuleName;
     response.call_start_time_local = currentDateTime
       .tz(timeZone)
       .format('YYYY-MM-DDTHH:mm:ss');
