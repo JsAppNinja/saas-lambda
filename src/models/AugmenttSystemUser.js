@@ -9,11 +9,12 @@ module.exports = (sequelize, DataTypes) => {
       },
       amazon_id: {
         type: DataTypes.INTEGER,
+        unique: true,
         allowNull: false,
       },
       settings: {
         type: DataTypes.ARRAY(DataTypes.INTEGER),
-        allowNull: true,
+        allowNull: false,
       },
     },
     {

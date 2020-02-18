@@ -2,24 +2,21 @@ module.exports = (sequelize, DataTypes) => {
   const CustomerUser = sequelize.define(
     'CustomerUser',
     {
-      Id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
       },
-      ProfileName: {
-        type: DataTypes.STRING(150),
+      amazon_id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
+        unique: true,
       },
-      Email: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
-      },
-      DepartmentId: {
+      departments: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      SettingId: {
+      settings: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -28,15 +25,13 @@ module.exports = (sequelize, DataTypes) => {
       freezeTableName: true,
       classMethods: {
         associate({ Department, Setting }) {
-          CustomerUser.belongsTo(Department, {
+          CustomerUser.hasMany(Department, {
             as: 'Department',
-            foreignKey: 'DepartmentId',
-            targetKey: 'Id',
+            sourceKey: 'departments',
           });
-          CustomerUser.belongsTo(Setting, {
+          CustomerUser.hasMany(Setting, {
             as: 'Setting',
-            foreignKey: 'SettingId',
-            targetKey: 'Id',
+            sourceKey: 'settings',
           });
         },
       },

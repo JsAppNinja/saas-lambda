@@ -45,33 +45,33 @@ module.exports = (sequelize, DataTypes) => {
         }) {
           AugmenttSystem.hasMany(AugmenttSystemUser, {
             as: 'AugmenttSystemUser',
-            foreignKey: 'users',
-            sourceKey: 'id',
+            foreignKey: 'id',
+            sourceKey: 'users',
           });
           AugmenttSystem.hasMany(Setting, {
             as: 'Setting',
-            foreignKey: 'settings',
-            sourceKey: 'id',
+            foreignKey: 'id',
+            sourceKey: 'settings',
           });
           AugmenttSystem.hasMany(Customer, {
             as: 'Customer',
-            foreignKey: 'customers',
-            sourceKey: 'id',
+            foreignKey: 'id',
+            sourceKey: 'customers',
           });
           AugmenttSystem.hasMany(ProductPlanCoupon, {
             as: 'ProductPlanCoupon',
-            foreignKey: 'coupons',
-            sourceKey: 'id',
+            foreignKey: 'id',
+            sourceKey: 'coupons',
           });
           AugmenttSystem.hasMany(ProductPlan, {
             as: 'ProductPlan',
-            foreignKey: 'product_plans',
-            sourceKey: 'id',
+            foreignKey: 'id',
+            sourceKey: 'product_plans',
           });
           AugmenttSystem.hasMany(ServiceProvider, {
             as: 'ServiceProvider',
-            foreignKey: 'service_providers',
-            sourceKey: 'id',
+            foreignKey: 'id',
+            sourceKey: 'service_providers',
           });
         },
       },

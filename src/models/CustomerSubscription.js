@@ -23,16 +23,18 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ Department, Setting }) {
-          CustomerSubscription.belongsTo(Department, {
-            as: 'Department',
-            foreignKey: 'DepartmentId',
-            targetKey: 'Id',
+        associate({ SubscriptionInvoice, ProductScope, ProductPlan, Setting }) {
+          CustomerSubscription.hasMany(SubscriptionInvoice, {
+            as: 'SubscriptionInvoice',
+            sourceKey: 'invoices',
           });
-          CustomerSubscription.belongsTo(Setting, {
-            as: 'Setting',
-            foreignKey: 'SettingId',
-            targetKey: 'Id',
+          CustomerSubscription.hasOne(ProductScope, {
+            as: 'ProductScope',
+            sourceKey: 'product_scope',
+          });
+          CustomerSubscription.hasOne(ProductPlan, {
+            as: 'ProductPlan',
+            sourceKey: 'product_plan',
           });
         },
       },

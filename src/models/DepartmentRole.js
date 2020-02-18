@@ -2,20 +2,20 @@ module.exports = (sequelize, DataTypes) => {
   const DepartmentRole = sequelize.define(
     'DepartmentRole',
     {
-      Id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
       },
-      Name: {
+      name: {
         type: DataTypes.STRING(50),
         allowNull: false,
       },
-      Code: {
+      code: {
         type: DataTypes.STRING(50),
         allowNull: false,
       },
-      IsAdmin: {
+      isAdmin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
@@ -26,8 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         associate({ Department }) {
           DepartmentRole.belongsTo(Department, {
             as: 'Department',
-            foreignKey: 'Id',
-            targetKey: 'DepartmentRole',
+            foreignKey: 'department_role',
           });
         },
       },

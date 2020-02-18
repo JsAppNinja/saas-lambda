@@ -2,20 +2,16 @@ module.exports = (sequelize, DataTypes) => {
   const Department = sequelize.define(
     'Department',
     {
-      Id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
       },
-      DepartmentName: {
+      department_name: {
         type: DataTypes.STRING(50),
         allowNull: false,
       },
-      DepartmentCode: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
-      },
-      DepartmentRole: {
+      department_role: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -23,11 +19,14 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ DepartmentRole }) {
+        associate({ DepartmentRole, CustomerUser }) {
           Department.hasMany(DepartmentRole, {
             as: 'DepartmentRole',
-            foreignKey: 'DepartmentRole',
-            sourceKey: 'Id',
+            sourceKey: 'department_role',
+          });
+          Department.belongsTo(CustomerUser, {
+            as: 'CustomerUser',
+            foreignKey: 'departments'
           });
         },
       },

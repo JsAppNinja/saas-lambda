@@ -23,11 +23,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ AugmenttSystemUser, Setting }) {
-          Customer.hasMany(AugmenttSystemUser, {
-            as: 'AugmenttSystemUser',
-            foreignKey: 'users',
-            sourceKey: 'id',
+        associate({ CustomerUser, Setting }) {
+          Customer.hasMany(CustomerUser, {
+            as: 'CustomerUser',
+            foreignKey: 'id',
+            sourceKey: 'users',
           });
           Customer.hasMany(Setting, {
             as: 'Setting',
