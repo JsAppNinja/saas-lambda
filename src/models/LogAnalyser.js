@@ -27,7 +27,18 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate() {},
+        associate({ LogAnalyserResult, LogAnalyserRuleSet }) {
+          LogAnalyser.hasMany(LogAnalyserResult, {
+            as: 'LogAnalyserResult',
+            sourceKey: 'results',
+            targetKey: 'id',
+            foreignKey: 'log_analyzer',
+          });
+          LogAnalyser.belongsTo(LogAnalyserRuleSet, {
+            as: 'LogAnalyserRuleSet',
+            sourceKey: 'rule_set',
+          });
+        },
       },
     }
   );
