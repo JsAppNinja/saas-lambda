@@ -1,15 +1,26 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('augment_system_users', {
+    return queryInterface.createTable('customers', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      amazon_id: {
-        type: Sequelize.INTEGER
+      external_customer_id: {
+        type: Sequelize.STRING
+      },
+      users: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'customer_users',
+            schema: 'schema'
+          },
+          key: 'id'
+        },
+        allowNull: false,
       },
       settings: {
         type: Sequelize.INTEGER,
@@ -33,6 +44,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('augment_system_users');
+    return queryInterface.dropTable('customers');
   }
 };

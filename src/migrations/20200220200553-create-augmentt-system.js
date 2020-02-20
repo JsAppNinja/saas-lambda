@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('augmentt_system', {
+    return queryInterface.createTable('augmentt_systems', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'augmentt_system_user',
+            tableName: 'augmentt_system_users',
             schema: 'schema'
           },
           key: 'id'
@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'setting',
+            tableName: 'settings',
             schema: 'schema'
           },
           key: 'id'
@@ -34,7 +34,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'customer',
+            tableName: 'customers',
             schema: 'schema'
           },
           key: 'id'
@@ -45,7 +45,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'product_plan_coupon',
+            tableName: 'product_plan_coupons',
             schema: 'schema'
           },
           key: 'id'
@@ -56,7 +56,18 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'product_plan_coupon',
+            tableName: 'product_plan_coupons',
+            schema: 'schema'
+          },
+          key: 'id'
+        },
+        allowNull: false,
+      },
+      service_providers: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'service_providers',
             schema: 'schema'
           },
           key: 'id'
@@ -74,6 +85,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('augmentt_system');
+    return queryInterface.dropTable('augmentt_systems');
   }
 };
