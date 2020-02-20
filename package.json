@@ -4,18 +4,13 @@
   "main": "handler.js",
   "license": "MIT",
   "scripts": {
-    "deploy:env": "sls deploy --stage $NODE_ENV",
     "deploy": "export NODE_ENV=dev && yarn deploy:env",
     "deploy:production": "export NODE_ENV=production && yarn deploy:env",
     "deploy:stage": "export NODE_ENV=stage && yarn deploy:env",
     "lint": "eslint src --ext ts,js --no-ignore --fix",
-    "serve": "sls offline -P 4000",
     "serve:watch": "nodemon -e js,ts,jsx,tsx -x yarn serve",
-    "tail:hello": "sls logs --function hello --tail",
     "test": "jest",
     "test:watch": "jest --watch",
-    "build": "sls webpack --out dist",
-    "watch:hello": "sls invoke local --watch --function hello --path fixtures/event.json",
     "aws:build": "cp -R node_modules/ src/node_modules && webpack --config webpack.aws.js"
   },
   "devDependencies": {
@@ -37,13 +32,7 @@
     "husky": "^3.0.5",
     "lint-staged": "^9.2.5",
     "nodemon": "^1.19.2",
-    "prettier": "^1.18.2",
-    "serverless": "^1.51.0",
-    "serverless-dotenv-plugin": "^2.1.1",
-    "serverless-offline": "^5.10.1",
-    "serverless-plugin-warmup": "^4.7.0-rc.1",
-    "serverless-prune-plugin": "^1.4.1",
-    "serverless-webpack": "^5.3.1"
+    "prettier": "^1.18.2"
   },
   "dependencies": {
     "@babel/core": "7.6.0",
@@ -54,17 +43,18 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.0.6",
     "debug": "^4.1.1",
-    "ts-loader": "^6.1.0",
-    "typescript": "^3.6.3",
-    "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.10",
-    "webpack-node-externals": "^1.7.2",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.13",
     "mysql2": "^1.5.1",
     "proxy-agent": "^3.0.3",
     "sequelize": "^4.28.5",
-    "sql.js": "^0.5.0"
+    "sequelize-cli": "^5.5.1",
+    "sql.js": "^0.5.0",
+    "ts-loader": "^6.1.0",
+    "typescript": "^3.6.3",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.10",
+    "webpack-node-externals": "^1.7.2"
   },
   "husky": {
     "hooks": {
