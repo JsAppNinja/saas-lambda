@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const AugmenttSystem = sequelize.define(
-    'AugmenttSystem',
+  const augmentt_system = sequelize.define(
+    'augmentt_system',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -36,40 +36,40 @@ module.exports = (sequelize, DataTypes) => {
       freezeTableName: true,
       classMethods: {
         associate({
-          AugmenttSystemUser,
-          Setting,
-          Customer,
-          ProductPlanCoupon,
-          ProductPlan,
-          ServiceProvider,
+          augmentt_system_user,
+          setting,
+          customer,
+          product_plan_coupon,
+          product_plan,
+          service_provider,
         }) {
-          AugmenttSystem.hasMany(AugmenttSystemUser, {
-            as: 'AugmenttSystemUser',
+          augmentt_system.hasMany(augmentt_system_user, {
+            as: 'augmentt_system_user',
             foreignKey: 'id',
             sourceKey: 'users',
           });
-          AugmenttSystem.hasMany(Setting, {
-            as: 'Setting',
+          augmentt_system.hasMany(setting, {
+            as: 'setting',
             foreignKey: 'id',
             sourceKey: 'settings',
           });
-          AugmenttSystem.hasMany(Customer, {
-            as: 'Customer',
+          augmentt_system.hasMany(customer, {
+            as: 'customer',
             foreignKey: 'id',
             sourceKey: 'customers',
           });
-          AugmenttSystem.hasMany(ProductPlanCoupon, {
-            as: 'ProductPlanCoupon',
+          augmentt_system.hasMany(product_plan_coupon, {
+            as: 'product_plan_coupon',
             foreignKey: 'id',
             sourceKey: 'coupons',
           });
-          AugmenttSystem.hasMany(ProductPlan, {
-            as: 'ProductPlan',
+          augmentt_system.hasMany(product_plan, {
+            as: 'product_plan',
             foreignKey: 'id',
             sourceKey: 'product_plans',
           });
-          AugmenttSystem.hasMany(ServiceProvider, {
-            as: 'ServiceProvider',
+          augmentt_system.hasMany(service_provider, {
+            as: 'service_provider',
             foreignKey: 'id',
             sourceKey: 'service_providers',
           });
@@ -77,5 +77,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-  return AugmenttSystem;
+  return augmentt_system;
 };

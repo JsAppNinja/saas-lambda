@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const SubscriptionInvoice = sequelize.define(
-    'SubscriptionInvoice',
+  const subscription_invoice = sequelize.define(
+    'subscription_invoice',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -23,9 +23,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ ProductSubscriptionTransaction }) {
-          SubscriptionInvoice.belongsToOne(ProductSubscriptionTransaction, {
-            as: 'ProductSubscriptionTransaction',
+        associate({ product_subscription_transaction }) {
+          subscription_invoice.belongsToOne(product_subscription_transaction, {
+            as: 'product_subscription_transaction',
             foreignKey: 'transaction',
             targetKey: 'id',
           });
@@ -33,5 +33,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-  return SubscriptionInvoice;
+  return subscription_invoice;
 };

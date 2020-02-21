@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const ServiceProvider = sequelize.define(
-    'ServiceProvider',
+  const service_provider = sequelize.define(
+    'service_provider',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -35,5 +35,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-  return ServiceProvider;
+  return service_provider;
 };

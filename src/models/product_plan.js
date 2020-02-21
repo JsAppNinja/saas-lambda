@@ -1,17 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
-  const ProductPlan = sequelize.define(
-    'ProductPlan',
+  const product_plan = sequelize.define(
+    'product_plan',
     {
-      Id: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
       },
-      ExternalId: {
+      external_id: {
         type: DataTypes.STRING(50),
         allowNull: false,
       },
-      ProductScopes: {
+      product_scopes: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -19,15 +19,15 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ ProductScope }) {
-          ProductPlan.hasMany(ProductScope, {
-            as: 'ProductScope',
-            foreignKey: 'ProductScopes',
+        associate({ product_scope }) {
+          product_plan.hasMany(product_scope, {
+            as: 'product_scope',
+            foreignKey: 'product_scopes',
             targetKey: 'Id',
           });
         },
       },
     }
   );
-  return ProductPlan;
+  return product_plan;
 };

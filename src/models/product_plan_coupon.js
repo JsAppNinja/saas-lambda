@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const ProductPlanCoupon = sequelize.define(
-    'ProductPlanCoupon',
+  const product_plan_coupon = sequelize.define(
+    'product_plan_coupon',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ ServiceProvider }) {
-          ProductPlanCoupon.belongsToMany(ServiceProvider, {
-            as: 'ServiceProvider',
+        associate({ service_provider }) {
+          product_plan_coupon.belongsToMany(service_provider, {
+            as: 'service_provider',
             foreignKey: 'id',
             targetKey: 'coupons',
           });
@@ -25,5 +25,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-  return ProductPlanCoupon;
+  return product_plan_coupon;
 };

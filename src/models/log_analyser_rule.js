@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const LogAnalyserRule = sequelize.define(
-    'LogAnalyserRule',
+  const log_analyser_rule = sequelize.define(
+    'log_analyser_rule',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -23,5 +23,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-  return LogAnalyserRule;
+  return log_analyser_rule;
 };
