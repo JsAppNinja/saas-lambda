@@ -14,28 +14,6 @@ module.exports = {
       source_type: {
         type: Sequelize.STRING
       },
-      results: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'log_analyser_results',
-            schema: 'schema'
-          },
-          key: 'id'
-        },
-        allowNull: false,
-      },
-      rule_set: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'log_analyser_rule_sets',
-            schema: 'schema'
-          },
-          key: 'id'
-        },
-        allowNull: false,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

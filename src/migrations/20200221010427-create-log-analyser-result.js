@@ -11,15 +11,6 @@ module.exports = {
       external_id: {
         type: Sequelize.STRING
       },
-      log_analyser: {
-        type: Sequelize.UUID,
-        references: {
-          model: 'log_analysers',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

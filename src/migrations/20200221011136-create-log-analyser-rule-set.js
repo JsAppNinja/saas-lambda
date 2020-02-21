@@ -8,15 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      rules: {
-        type: Sequelize.UUID,
-        references: {
-          model: 'log_analyser_rules',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
