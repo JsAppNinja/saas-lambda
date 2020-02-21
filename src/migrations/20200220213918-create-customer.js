@@ -11,28 +11,6 @@ module.exports = {
       external_customer_id: {
         type: Sequelize.STRING
       },
-      users: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'customer_users',
-            schema: 'schema'
-          },
-          key: 'id'
-        },
-        allowNull: false,
-      },
-      settings: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'settings',
-            schema: 'schema'
-          },
-          key: 'id'
-        },
-        allowNull: false,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
