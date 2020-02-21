@@ -1,17 +1,29 @@
 module.exports = (sequelize, DataTypes) => {
-  const ServiceProviderUser = sequelize.define(
-    'ServiceProviderUser',
+  const ServiceProvider = sequelize.define(
+    'ServiceProvider',
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
       },
-      amazon_id: {
+      coupons: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      product_plans: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      users: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
       settings: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      managed_customers: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -23,5 +35,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-  return ServiceProviderUser;
+  return ServiceProvider;
 };
