@@ -8,61 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      coupons: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'product_plan_coupons',
-            schema: 'schema'
-          },
-          key: 'id'
-        },
-        allowNull: false,
-      },
-      product_plans: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'product_plans',
-            schema: 'schema'
-          },
-          key: 'id'
-        },
-        allowNull: false,
-      },
-      users: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'service_provider_users',
-            schema: 'schema'
-          },
-          key: 'id'
-        },
-        allowNull: false,
-      },
-      settings: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'settings',
-            schema: 'schema'
-          },
-          key: 'id'
-        },
-        allowNull: false,
-      },
-      managed_customers: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'customers',
-            schema: 'schema'
-          },
-          key: 'id'
-        },
-        allowNull: false,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

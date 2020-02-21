@@ -11,15 +11,6 @@ module.exports = {
       external_id: {
         type: Sequelize.STRING
       },
-      product_scope: {
-        type: Sequelize.UUID,
-        references: {
-          model: 'product_scopes',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

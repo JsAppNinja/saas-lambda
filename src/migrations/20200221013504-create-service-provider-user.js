@@ -12,17 +12,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      settings: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'settings',
-            schema: 'schema'
-          },
-          key: 'id'
-        },
-        allowNull: false,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

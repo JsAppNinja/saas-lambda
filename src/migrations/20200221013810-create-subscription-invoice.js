@@ -16,17 +16,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      transaction: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'product_plan_subscription_transactions',
-            schema: 'schema'
-          },
-          key: 'id'
-        },
-        allowNull: false,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
