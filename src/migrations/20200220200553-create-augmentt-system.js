@@ -8,6 +8,30 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      users: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      settings: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      customers: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      coupons: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      product_plans: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      service_providers: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -11,28 +11,6 @@ module.exports = {
       amazon_id: {
         type: Sequelize.INTEGER
       },
-      departments: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'departments',
-            schema: 'schema'
-          },
-          key: 'id'
-        },
-        allowNull: false,
-      },
-      settings: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'settings',
-            schema: 'schema'
-          },
-          key: 'id'
-        },
-        allowNull: false,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
