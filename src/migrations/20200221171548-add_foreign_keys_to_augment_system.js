@@ -9,13 +9,11 @@ module.exports = {
         {
           type: Sequelize.INTEGER,
           references: {
-            model: {
-              tableName: 'augmentt_system_users',
-              schema: 'schema'
-            },
+            model: 'augmentt_system_users',
             key: 'id'
           },
-          allowNull: false,
+          onUpdate: 'cascade',
+          onDelete: 'cascade'
         }
       ),
       queryInterface.addColumn(
@@ -24,13 +22,11 @@ module.exports = {
         {
           type: Sequelize.INTEGER,
           references: {
-            model: {
-              tableName: 'settings',
-              schema: 'schema'
-            },
+            model: 'settings',
             key: 'id'
           },
-          allowNull: false,
+          onUpdate: 'cascade',
+          onDelete: 'cascade'
         }
       ),
       queryInterface.addColumn(
@@ -39,13 +35,11 @@ module.exports = {
         {
           type: Sequelize.INTEGER,
           references: {
-            model: {
-              tableName: 'customers',
-              schema: 'schema'
-            },
+            model: 'customers',
             key: 'id'
           },
-          allowNull: false,
+          onUpdate: 'cascade',
+          onDelete: 'cascade'
         }
       ),
       queryInterface.addColumn(
@@ -54,13 +48,11 @@ module.exports = {
         {
           type: Sequelize.INTEGER,
           references: {
-            model: {
-              tableName: 'product_plan_coupons',
-              schema: 'schema'
-            },
+            model: 'product_plan_coupons',
             key: 'id'
           },
-          allowNull: false,
+          onUpdate: 'cascade',
+          onDelete: 'cascade'
         }
       ),
       queryInterface.addColumn(
@@ -69,13 +61,11 @@ module.exports = {
         {
           type: Sequelize.INTEGER,
           references: {
-            model: {
-              tableName: 'product_plans',
-              schema: 'schema'
-            },
+            model: 'product_plans',
             key: 'id'
           },
-          allowNull: false,
+          onUpdate: 'cascade',
+          onDelete: 'cascade'
         }
       ),
       queryInterface.addColumn(
@@ -84,28 +74,24 @@ module.exports = {
         {
           type: Sequelize.INTEGER,
           references: {
-            model: {
-              tableName: 'service_providers',
-              schema: 'schema'
-            },
+            model: 'service_providers',
             key: 'id'
           },
-          allowNull: false,
+          onUpdate: 'cascade',
+          onDelete: 'cascade'
         }
       ),
       queryInterface.addColumn(
-        'augment_system_users',
+        'augmentt_system_users',
         'settings',
         {
           type: Sequelize.INTEGER,
           references: {
-            model: {
-              tableName: 'settings',
-              schema: 'schema'
-            },
+            model: 'settings',
             key: 'id'
           },
-          allowNull: false,
+          onUpdate: 'cascade',
+          onDelete: 'cascade'
         }
       ),
     ]);

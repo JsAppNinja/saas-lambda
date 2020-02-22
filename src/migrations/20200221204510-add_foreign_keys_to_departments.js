@@ -7,13 +7,11 @@ module.exports = {
       {
         type: Sequelize.INTEGER,
         references: {
-          model: {
-            tableName: 'department_roles',
-            schema: 'schema',
-          },
-          key: 'id',
+          model: 'department_roles',
+          key: 'id'
         },
-        allowNull: false,
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
     ),
   ]),

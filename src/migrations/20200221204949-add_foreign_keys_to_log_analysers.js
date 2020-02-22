@@ -7,13 +7,11 @@ module.exports = {
       {
         type: Sequelize.INTEGER,
         references: {
-          model: {
-            tableName: 'log_analyser_results',
-            schema: 'schema',
-          },
-          key: 'id',
+          model: 'log_analyser_results',
+          key: 'id'
         },
-        allowNull: false,
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
     ),
     queryInterface.addColumn(
@@ -22,13 +20,11 @@ module.exports = {
       {
         type: Sequelize.INTEGER,
         references: {
-          model: {
-            tableName: 'log_analyser_rule_sets',
-            schema: 'schema',
-          },
-          key: 'id',
+          model: 'log_analyser_rule_sets',
+          key: 'id'
         },
-        allowNull: false,
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
     ),
     queryInterface.addColumn(
@@ -37,13 +33,11 @@ module.exports = {
       {
         type: Sequelize.INTEGER,
         references: {
-          model: {
-            tableName: 'log_analysers',
-            schema: 'schema',
-          },
-          key: 'id',
+          model: 'log_analysers',
+          key: 'id'
         },
-        allowNull: false,
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
     ),
     queryInterface.addColumn(
@@ -52,13 +46,11 @@ module.exports = {
       {
         type: Sequelize.INTEGER,
         references: {
-          model: {
-            tableName: 'log_analyser_rules',
-            schema: 'schema',
-          },
-          key: 'id',
+          model: 'log_analyser_rules',
+          key: 'id'
         },
-        allowNull: false,
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
     ),
   ]),
