@@ -1,4 +1,6 @@
-exports.handler = function(event, context, callback) {
+const { AuthDeniedResponse } = require('../../utils/lambda-response');
+
+module.exports.handler = async (event, context) => {
   const headers = event.headers;
   const queryStringParameters = event.queryStringParameters;
   const pathParameters = event.pathParameters;
@@ -17,8 +19,8 @@ exports.handler = function(event, context, callback) {
     resource += apiGatewayArnTmp[3];
   }
 
-  // Perform authorization to return the Allow policy for correct parameters and 
-  // the 'Unauthorized' error, otherwise.
+  /* Perform authorization to return the Allow policy for correct parameters and 
+  the 'Unauthorized' error, otherwise. */
   const authResponse = {};
   const condition = {};
   condition.IpAddress = {};
@@ -26,29 +28,32 @@ exports.handler = function(event, context, callback) {
   if (headers.HeaderAuth1 === "headerValue1"
       && queryStringParameters.QueryString1 === "queryValue1"
       && stageVariables.StageVar1 === "stageValue1") {
-    callback(null, generateAllow('me', event.methodArn));
+    return generateAllow('me', event.methodArn);
   }  else {
-    callback("Unauthorized");
+    const response = AuthDeniedResponse({
+      message: 'You are not authorized to access to this resource',
+      input: event,
+    })
+    return response;
   }
 }
-   
+
 // Help function to generate an IAM policy
 const generatePolicy = function(principalId, effect, resource) {
-  // Required output:
   const authResponse = {};
   authResponse.principalId = principalId;
   if (effect && resource) {
     const policyDocument = {};
-    policyDocument.Version = '2012-10-17'; // default version
+    policyDocument.Version = '2012-10-17';
     policyDocument.Statement = [];
     const statementOne = {};
-    statementOne.Action = 'execute-api:Invoke'; // default action
+    statementOne.Action = 'execute-api:Invoke';
     statementOne.Effect = effect;
     statementOne.Resource = resource;
     policyDocument.Statement[0] = statementOne;
     authResponse.policyDocument = policyDocument;
   }
-  // Optional output with custom properties of the String, Number or Boolean type.
+
   authResponse.context = {
     "stringKey": "stringval",
     "numberKey": 123,
