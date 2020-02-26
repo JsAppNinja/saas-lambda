@@ -17,6 +17,6 @@ module.exports = {
   ]),
 
   down: (queryInterface, Sequelize) => Promise.all([
-    queryInterface.removeColumn('customers', 'users'),
+    queryInterface.removeColumn('departments', 'department_role'),
   ]),
 };
