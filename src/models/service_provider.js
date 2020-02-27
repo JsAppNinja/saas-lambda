@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const service_provider = sequelize.define(
-    'service_provider',
+  const service_providers = sequelize.define(
+    'service_providers',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -31,9 +31,35 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate() {},
+        associate({ product_plan_coupons, product_plans, service_provider_users, settings, customers }) {
+          service_providers.hasMany(product_plan_coupons, {
+            as: 'product_plan_coupons',
+            foreignKey: 'coupons',
+            sourceKey: 'id',
+          });
+          service_providers.hasMany(product_plans, {
+            as: 'product_plans',
+            foreignKey: 'product_plans',
+            sourceKey: 'id',
+          });
+          service_providers.hasMany(service_provider_users, {
+            as: 'service_provider_users',
+            foreignKey: 'users',
+            sourceKey: 'id',
+          });
+          service_providers.hasMany(settings, {
+            as: 'settings',
+            foreignKey: 'settings',
+            sourceKey: 'id',
+          });
+          service_providers.hasMany(customers, {
+            as: 'customers',
+            foreignKey: 'managed_customers',
+            sourceKey: 'id',
+          });
+        },
       },
     }
   );
-  return service_provider;
+  return service_providers;
 };
