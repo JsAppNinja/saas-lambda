@@ -63,12 +63,12 @@ Resources:
         RootResource:
           Type: Api
           Properties:
-            Path: augmentt/customer
+            Path: ./augmentt/customer
             Method: ANY
         ProxyResource:
           Type: Api
           Properties:
-            Path: augmentt/customer/{proxy+}
+            Path: ./augmentt/customer/{proxy+}
             Method: ANY
 
   SecurityGroup:
