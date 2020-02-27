@@ -5,6 +5,7 @@ const subscriptionHandler = require('./handlers/subscription').handler;
 const subscriptionCouponHandler = require('./handlers/subscriptionCoupon').handler;
 
 module.exports.handler = async (event, context) => {
+  console.log('=== event log ===', event);
   switch (event.action) {
     case ACTION.CUSTOMER_ROOT:
       return customerHandler(event, context);
