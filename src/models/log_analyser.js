@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const log_analyser = sequelize.define(
-    'log_analyser',
+  const log_analysers = sequelize.define(
+    'log_analysers',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -27,20 +27,18 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ log_analyser_result, log_analyser_rule_set }) {
-          log_analyser.hasMany(log_analyser_result, {
-            as: 'log_analyser_result',
+        associate({ log_analyser_results, log_analyser_rule_sets }) {
+          log_analysers.hasMany(log_analyser_results, {
+            as: 'log_analyser_results',
             sourceKey: 'results',
-            targetKey: 'id',
-            foreignKey: 'log_analyzer',
           });
-          log_analyser.belongsTo(log_analyser_rule_set, {
-            as: 'log_analyser_rule_set',
+          log_analysers.hasMany(log_analyser_rule_sets, {
+            as: 'log_analyser_rule_sets',
             sourceKey: 'rule_set',
           });
         },
       },
     }
   );
-  return log_analyser;
+  return log_analysers;
 };

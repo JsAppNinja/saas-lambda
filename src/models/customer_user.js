@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const customer_user = sequelize.define(
-    'customer_user',
+  const customer_users = sequelize.define(
+    'customer_users',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -24,18 +24,18 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ department, Setting }) {
-          customer_user.hasMany(department, {
-            as: 'department',
+        associate({ departments, settings }) {
+          customer_users.hasMany(departments, {
+            as: 'departments',
             sourceKey: 'departments',
           });
-          customer_user.hasMany(Setting, {
-            as: 'Setting',
+          customer_users.hasMany(settings, {
+            as: 'settings',
             sourceKey: 'settings',
           });
         },
       },
     }
   );
-  return customer_user;
+  return customer_users;
 };

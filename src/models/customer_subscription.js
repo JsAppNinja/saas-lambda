@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const customer_subscription = sequelize.define(
-    'customer_subscription',
+  const customer_subscriptions = sequelize.define(
+    'customer_subscriptions',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -23,22 +23,22 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ subscription_invoice, product_scope, product_plan }) {
-          customer_subscription.hasMany(subscription_invoice, {
-            as: 'subscription_invoice',
+        associate({ subscription_invoices, product_scopes, product_plans }) {
+          customer_subscriptions.hasMany(subscription_invoices, {
+            as: 'subscription_invoices',
             sourceKey: 'invoices',
           });
-          customer_subscription.hasOne(product_scope, {
-            as: 'product_scope',
+          customer_subscriptions.hasOne(product_scopes, {
+            as: 'product_scopes',
             sourceKey: 'product_scope',
           });
-          customer_subscription.hasOne(product_plan, {
-            as: 'product_plan',
+          customer_subscriptions.hasOne(product_plans, {
+            as: 'product_plans',
             sourceKey: 'product_plan',
           });
         },
       },
     }
   );
-  return customer_subscription;
+  return customer_subscriptions;
 };

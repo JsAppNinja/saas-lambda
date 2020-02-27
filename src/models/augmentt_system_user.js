@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const augmentt_system_user = sequelize.define(
-    'augmentt_system_user',
+  const augmentt_system_users = sequelize.define(
+    'augmentt_system_users',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -13,21 +13,16 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       settings: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },
     {
       freezeTableName: true,
       classMethods: {
-        associate({ augmentt_system, setting }) {
-          augmentt_system_user.belongsTo(augmentt_system, {
-            as: 'augmentt_system_user',
-            foreignKey: 'users',
-            sourceKey: 'id',
-          });
-          augmentt_system_user.hasMany(setting, {
-            as: 'setting',
+        associate({ settings }) {
+          augmentt_system_users.hasMany(settings, {
+            as: 'settings',
             foreignKey: 'settings',
             sourceKey: 'id',
           });
@@ -35,5 +30,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-  return augmentt_system_user;
+  return augmentt_system_users;
 };

@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const log_analyser_result = sequelize.define(
-    'log_analyser_result',
+  const log_analyser_results = sequelize.define(
+    'log_analyser_results',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ log_analyser }) {
-          log_analyser_result.belongsTo(log_analyser, {
-            as: 'log_analyser',
+        associate({ log_analysers }) {
+          log_analyser_results.belongsTo(log_analysers, {
+            as: 'log_analysers',
             foreignKey: 'results',
             sourceKey: 'id',
           });
@@ -29,5 +29,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-  return log_analyser_result;
+  return log_analyser_results;
 };
