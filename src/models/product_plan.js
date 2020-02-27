@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const product_plan = sequelize.define(
-    'product_plan',
+  const product_plans = sequelize.define(
+    'product_plans',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ product_scope }) {
-          product_plan.hasMany(product_scope, {
-            as: 'product_scope',
+        associate({ product_scopes }) {
+          product_plans.hasMany(product_scopes, {
+            as: 'product_scopes',
             foreignKey: 'product_scopes',
             targetKey: 'Id',
           });
@@ -29,5 +29,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-  return product_plan;
+  return product_plans;
 };

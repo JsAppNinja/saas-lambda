@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const payment_source = sequelize.define(
-    'payment_source',
+  const payment_sources = sequelize.define(
+    'payment_sources',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -19,5 +19,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-  return payment_source;
+  return payment_sources;
 };

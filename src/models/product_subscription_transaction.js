@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const product_subscription_transaction = sequelize.define(
-    'product_subscription_transaction',
+  const product_subscription_transactions = sequelize.define(
+    'product_subscription_transactions',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -19,15 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ service_provider }) {
-          product_subscription_transaction.belongsToMany(service_provider, {
-            as: 'service_provider',
-            foreignKey: 'id',
-            targetKey: 'coupons',
-          });
-        },
+        associate() {},
       },
     }
   );
-  return product_subscription_transaction;
+  return product_subscription_transactions;
 };

@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const product_scope = sequelize.define(
-    'product_scope',
+  const product_scopes = sequelize.define(
+    'product_scopes',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -23,5 +23,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-  return product_scope;
+  return product_scopes;
 };

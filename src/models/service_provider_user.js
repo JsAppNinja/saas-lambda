@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const service_provider_user = sequelize.define(
-    'service_provider_user',
+  const service_provider_users = sequelize.define(
+    'service_provider_users',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -19,9 +19,14 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate() {},
+        associate({ settings }) {
+          service_provider_users.hasMany(settings, {
+            as: 'settings',
+            foreignKey: 'settings',
+          });
+        },
       },
     }
   );
-  return service_provider_user;
+  return service_provider_users;
 };

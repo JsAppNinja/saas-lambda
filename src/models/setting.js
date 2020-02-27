@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const setting = sequelize.define(
-    'setting',
+  const settings = sequelize.define(
+    'settings',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -35,5 +35,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-  return setting;
+  return settings;
 };
