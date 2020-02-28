@@ -24,11 +24,19 @@ module.exports.handler = async (event, context) => {
   const path = event.path;
   const httpMethod = event.httpMethod;
 
-  const successResponse = successResponse({
+  const successResponses = successResponse({
     message: 'Go Serverless! Your function executed successfully!',
     input: event,
   });
 
+  const routes = Object.values(ROUTES);
+  const actions = Object.keys(ROUTES);
+  const patternIndex = routes.findIndex(route => {
+    const pattern = new UrlPattern(route);
+    return pattern.match(path)
+  });
+
+  console.log('search result is ', patternIndex); // eslint-disable-line no-console
   // switch (event.action) {
   //   case ACTION.CUSTOMER_ROOT:
   //     return customerHandler(event, context);
@@ -41,5 +49,5 @@ module.exports.handler = async (event, context) => {
   //   default:
   //     return successResponse;
   // }
-  return successResponse;
+  return successResponses;
 };
