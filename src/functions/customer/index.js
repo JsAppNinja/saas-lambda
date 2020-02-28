@@ -1,22 +1,22 @@
 const UrlPattern = require('url-pattern');
 
-// const customerHandler = require('./handlers/customer').handler;
-// const customersHandler = require('./handlers/customers').handler;
-// const customerSettingHandler = require('./handlers/customerSetting').handler;
-// const customerSettingsHandler = require('./handlers/customerSettings').handler;
-// const customerSubscriptionHandler = require('./handlers/customerSubscription').handler;
-// const customerSubscriptionsHandler = require('./handlers/customerSubscriptions').handler;
-// const customerSubscriptionCouponHandler = require('./handlers/customerSubscriptionCoupon').handler;
-// const customerSubscriptionCouponsHandler = require('./handlers/customerSubscriptionCoupons').handler;
-// const customerUserHandler = require('./handlers/customerUser').handler;
-// const customerUsersHandler = require('./handlers/customerUsers').handler;
-// const customerUserSettingHandler = require('./handlers/customerUserSetting').handler;
-// const customerUserSettingsHandler = require('./handlers/customerUserSettings').handler;
-
 const ACTION = require('./constants');
 const ROUTES = require('./routes');
 
 const { successResponse } = require('../../utils/lambda-response');
+
+const customerHandler = require('./handlers/customer').handler;
+const customersHandler = require('./handlers/customers').handler;
+const customerSettingHandler = require('./handlers/customerSetting').handler;
+const customerSettingsHandler = require('./handlers/customerSettings').handler;
+const customerSubscriptionHandler = require('./handlers/customerSubscription').handler;
+const customerSubscriptionsHandler = require('./handlers/customerSubscriptions').handler;
+const customerSubscriptionCouponHandler = require('./handlers/customerSubscriptionCoupon').handler;
+const customerSubscriptionCouponsHandler = require('./handlers/customerSubscriptionCoupons').handler;
+const customerUserHandler = require('./handlers/customerUser').handler;
+const customerUsersHandler = require('./handlers/customerUsers').handler;
+const customerUserSettingHandler = require('./handlers/customerUserSetting').handler;
+const customerUserSettingsHandler = require('./handlers/customerUserSettings').handler;
 
 module.exports.handler = async (event, context) => {
   console.log('=== event log ===', event); // eslint-disable-line no-console
