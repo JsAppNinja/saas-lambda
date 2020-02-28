@@ -1,6 +1,3 @@
-
-console.log('Function is loading');
-
 const { sendFailResponse } = require('../../../utils/response');
 const { tables } = require('../../../utils/error/errorMessages');
 

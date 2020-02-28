@@ -3,8 +3,8 @@ require('superagent-proxy')(request);
 const wrapper = require('../../../utils/lambdaHelper');
 const proxy = process.env.PROXY;
 const ctrApiEndpoint = process.env.CTR_API_ENDPOINT;
-const hgvBaseUrl = process.env.HGV_BASE_URL; // https://api.staging.hgv.com
-const hgvToken = process.env.HGV_TOKEN; // QWtRMk11NVZyUUU5TmY1dldFOWZPeTVvVzljYTpHZndrY3kzYXBJdFlDbDlWODhGeks5NnplRGNh
+const hgvBaseUrl = process.env.HGV_BASE_URL;
+const hgvToken = process.env.HGV_TOKEN;
 module.exports.handler = wrapper(async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
   console.log(JSON.stringify(event, null, 2));

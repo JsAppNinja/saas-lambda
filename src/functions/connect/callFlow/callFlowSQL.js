@@ -1,5 +1,3 @@
-
-console.log('Function is loading');
 const moment = require('moment-timezone');
 const { checkSyntax, validateSyntax } = require('../../../utils/intentParser');
 const {
@@ -38,7 +36,6 @@ const getPrompt = ({ id, text, ssml }) => {
 
 const processEvent = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
-  // console.log(JSON.stringify(event, null, 2));
   try {
     const {
       dialed_number, customer_intent, caller_id, current_date_time, whisper_key, type,
@@ -120,7 +117,6 @@ const processEvent = async (event, context) => {
     if (customer_intent === 'getDNIS') {
       // Get SpecialHandlings
       const specialHandlings = [];
-      console.log('SpecialHandings', specialHandlings);
       const callSpecialHandling = await getSpecialHandling({
         dnisId: dnis.Id, callerId: caller_id, applicationId, timeZone, currentDateTime,
       });
@@ -165,7 +161,6 @@ const processEvent = async (event, context) => {
 
     let intent;
     const defaultIntent = await Intent.findOne({ where: { Name: '*', ApplicationId: applicationItem.Id } });
-    // let intent = await Intent.findOne({where: {Name: customer_intent, ApplicationId: applicationItem.Id}});
     const intents = await Intent.findAll({ where: { ApplicationId: applicationItem.Id } });
     const possibleIntents = [];
     for (let i = 0; i < intents.length; i++) {
@@ -187,7 +182,6 @@ const processEvent = async (event, context) => {
     });
 
     if (destItems.length === 0) {
-      // Try * Intent
       intent = defaultIntent;
       destItems = await Destination.findAll({
         where: {
@@ -271,12 +265,7 @@ const processEvent = async (event, context) => {
       callerId: caller_id, queueId: queue.Id, dnisId: dnis.Id, applicationId, timeZone, currentDateTime,
     });
 
-    // console.log('SpecialHandling:', JSON.stringify(callSpecialHandling, null, 2));
-
     queueArn = queue.ConnectQueue.ARN;
-
-    // const language = queue.Language;
-
 
     whisperPromptId = callSpecialHandling && callSpecialHandling.WhisperPromptId || dnis.WhisperPromptId;
     xferAnnouncementPromptId = callSpecialHandling && callSpecialHandling.XferAnnouncementPromptId || dnis.XferAnnouncementPromptId;
@@ -313,8 +302,6 @@ const processEvent = async (event, context) => {
 
     dnis.TrapDoorFlag = callSpecialHandling && callSpecialHandling.TrapDoorFlag || dnis.TrapDoorFlag;
 
-    // Log prompts
-
     console.log('MusicPrompt:', JSON.stringify(musicPrompt, null, 2));
     console.log('WhisperPrompt:', JSON.stringify(whisperPrompt, null, 2));
     console.log('QueueAnnouncementPrompt:', JSON.stringify(queueAnnouncementPrompt, null, 2));
@@ -343,14 +330,12 @@ const processEvent = async (event, context) => {
       queue,
       application: applicationItem,
       intent,
-      // language: language,
       destinationName: destination.Name,
       currentDateTime,
       customerIntent: customer_intent,
       startTimestamp: event.startTimestamp,
     });
   } catch (err) {
-    // console.log(err);
     if (err.errorMessage) {
       return sendFailResponse(err);
     }
