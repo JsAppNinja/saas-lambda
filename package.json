@@ -4,9 +4,9 @@
   "main": "handler.js",
   "license": "MIT",
   "scripts": {
-    "deploy": "export NODE_ENV=dev && yarn deploy:env",
+    "deploy": "export NODE_ENV=development && yarn deploy:env",
     "deploy:production": "export NODE_ENV=production && yarn deploy:env",
-    "deploy:stage": "export NODE_ENV=stage && yarn deploy:env",
+    "deploy:test": "export NODE_ENV=test && yarn deploy:env",
     "lint": "eslint src --ext ts,js --no-ignore --fix",
     "serve:watch": "nodemon -e js,ts,jsx,tsx -x yarn serve",
     "test": "jest",
