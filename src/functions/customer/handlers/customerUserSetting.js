@@ -2,7 +2,7 @@ const { successResponse } = require('../../../utils/lambda-response');
 
 module.exports.handler = async event => {
   const response = successResponse({
-    message: 'Go Serverless! Your function executed successfully!',
+    message: 'We are fetching one customer user setting information!',
     input: event,
   });
 
