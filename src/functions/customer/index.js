@@ -36,11 +36,8 @@ module.exports.handler = async (event, context) => {
 
   const routes = Object.values(ROUTES);
   const actions = Object.keys(ROUTES);
-  const options = {
-    segmentNameCharset: 'a-zA-Z0-9_',
-  };
   const patternIndex = routes.findIndex(route => {
-    const pattern = new UrlPattern(route, options);
+    const pattern = new UrlPattern(route);
     const result = pattern.match(path);
     console.log('Testing patterns =>', pattern, result); // eslint-disable-line no-console
     return result != null;
