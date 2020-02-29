@@ -48,34 +48,33 @@ module.exports.handler = async (event, context) => {
     return resourceNotFoundResponse;
   } else {
     const event = actions[patternIndex];
-    // switch (event) {
-    //   case ACTION.CUSTOMERS:
-    //     return customersHandler(event, context);
-    //   case ACTION.CUSTOMER:
-    //     return customerHandler(event, context);
-    //   case ACTION.CUSTOMER_SETTINGS:
-    //     return customerSettingsHandler(event, context);
-    //   case ACTION.CUSTOMER_SETTING:
-    //     return customerSettingHandler(event, context);
-    //   case ACTION.CUSTOMER_USERS:
-    //     return customerUsersHandler(event, context);
-    //   case ACTION.CUSTOMER_USER:
-    //     return customerUserHandler(event, context);
-    //   case ACTION.CUSTOMER_USER_SETTINGS:
-    //     return customerUserSettingsHandler(event, context);
-    //   case ACTION.CUSTOMER_USER_SETTING:
-    //     return customerUserSettingHandler(event, context);
-    //   case ACTION.CUSTOMER_SUBSCRIPTIONS:
-    //     return customerSubscriptionsHandler(event, context);
-    //   case ACTION.CUSTOMER_SUBSCRIPTION:
-    //     return customerSubscriptionHandler(event, context);  
-    //   case ACTION.CUSTOMER_SUBSCRIPTION_COUPONS:
-    //     return customerSubscriptionCouponsHandler(event, context); 
-    //   case ACTION.CUSTOMER_SUBSCRIPTION_COUPON:
-    //     return customerSubscriptionCouponHandler(event, context); 
-    //   default:
-    //     return requestSuccessResponse;
-    // }
-    return requestSuccessResponse;
+    switch (event) {
+      case ACTION.CUSTOMERS:
+        return customersHandler(event, context);
+      case ACTION.CUSTOMER:
+        return customerHandler(event, context);
+      case ACTION.CUSTOMER_SETTINGS:
+        return customerSettingsHandler(event, context);
+      case ACTION.CUSTOMER_SETTING:
+        return customerSettingHandler(event, context);
+      case ACTION.CUSTOMER_USERS:
+        return customerUsersHandler(event, context);
+      case ACTION.CUSTOMER_USER:
+        return customerUserHandler(event, context);
+      case ACTION.CUSTOMER_USER_SETTINGS:
+        return customerUserSettingsHandler(event, context);
+      case ACTION.CUSTOMER_USER_SETTING:
+        return customerUserSettingHandler(event, context);
+      case ACTION.CUSTOMER_SUBSCRIPTIONS:
+        return customerSubscriptionsHandler(event, context);
+      case ACTION.CUSTOMER_SUBSCRIPTION:
+        return customerSubscriptionHandler(event, context);  
+      case ACTION.CUSTOMER_SUBSCRIPTION_COUPONS:
+        return customerSubscriptionCouponsHandler(event, context); 
+      case ACTION.CUSTOMER_SUBSCRIPTION_COUPON:
+        return customerSubscriptionCouponHandler(event, context); 
+      default:
+        return requestSuccessResponse;
+    }
   }
 };
