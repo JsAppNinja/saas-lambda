@@ -3,7 +3,7 @@ const UrlPattern = require('url-pattern');
 const ACTION = require('./constants');
 const ROUTES = require('./routes');
 
-const { successResponse } = require('../../utils/lambda-response');
+const { successResponse, ResourceNotFoundResponse } = require('../../utils/lambda-response');
 
 const customerHandler = require('./handlers/customer').handler;
 const customersHandler = require('./handlers/customers').handler;
@@ -24,30 +24,55 @@ module.exports.handler = async (event, context) => {
   const path = event.path;
   const httpMethod = event.httpMethod;
 
-  const successResponses = successResponse({
-    message: 'Go Serverless! Your function executed successfully!',
+  const successResponse = successResponse({
+    message: 'Your request has been executed successfully!',
+    input: event,
+  });
+  const resourceNotFoundResponse = ResourceNotFoundResponse({
+    message: 'The request route is invalid. Please input the correct URL!',
     input: event,
   });
 
   const routes = Object.values(ROUTES);
   const actions = Object.keys(ROUTES);
+
   const patternIndex = routes.findIndex(route => {
     const pattern = new UrlPattern(route);
     return pattern.match(path)
   });
 
   console.log('search result is ', patternIndex); // eslint-disable-line no-console
-  // switch (event.action) {
-  //   case ACTION.CUSTOMER_ROOT:
-  //     return customerHandler(event, context);
-  //   case ACTION.CUSTOMER_SETTING:
-  //     return customerSettingHandler(event, context);
-  //   case ACTION.CREATE_CUSTOMER:
-  //     return subscriptionHandler(event, context);
-  //   case ACTION.LIST_CUSTOMER:
-  //     return subscriptionCouponHandler(event, context);
-  //   default:
-  //     return successResponse;
-  // }
-  return successResponses;
+  if (patternIndex < 0 ) {
+    return resourceNotFoundResponse;
+  } else {
+    const event = actions[patternIndex];
+      switch (event) {
+        case ACTION.CUSTOMERS:
+          return customersHandler(event, context);
+        case ACTION.CUSTOMER:
+          return customerHandler(event, context);
+        case ACTION.CUSTOMER_SETTINGS:
+          return customerSettingsHandler(event, context);
+        case ACTION.CUSTOMER_SETTING:
+          return customerSettingHandler(event, context);
+        case ACTION.CUSTOMER_USERS:
+          return customerUsersHandler(event, context);
+        case ACTION.CUSTOMER_USER:
+          return customerUserHandler(event, context);
+        case ACTION.CUSTOMER_USER_SETTINGS:
+          return customerUserSettingsHandler(event, context);
+        case ACTION.CUSTOMER_USER_SETTING:
+          return customerUserSettingHandler(event, context);
+        case ACTION.CUSTOMER_SUBSCRIPTIONS:
+          return customerSubscriptionsHandler(event, context);
+        case ACTION.CUSTOMER_SUBSCRIPTION:
+          return customerSubscriptionHandler(event, context);  
+        case ACTION.CUSTOMER_SUBSCRIPTION_COUPONS:
+          return customerSubscriptionCouponsHandler(event, context); 
+        case ACTION.CUSTOMER_SUBSCRIPTION_COUPON:
+          return customerSubscriptionCouponHandler(event, context); 
+        default:
+          return successResponse;
+      }
+  }
 };
