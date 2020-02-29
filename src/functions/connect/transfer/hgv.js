@@ -7,7 +7,7 @@ const hgvBaseUrl = process.env.HGV_BASE_URL;
 const hgvToken = process.env.HGV_TOKEN;
 module.exports.handler = wrapper(async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
-  console.log(JSON.stringify(event, null, 2));
+  console.log(JSON.stringify(event, null, 2)); // eslint-disable-line no-console
   const { Details: { ContactData: { PreviousContactId: contactId } } } = event;
 
   try {
@@ -20,14 +20,14 @@ module.exports.handler = wrapper(async (event, context) => {
     let dnis;
 
     try {
-      console.log('Fetching contact attributes from ctr api');
+      console.log('Fetching contact attributes from ctr api'); // eslint-disable-line no-console
       const ctrResponse = await request.get(`${ctrApiEndpoint}/${contactId}`);
       const ctr = ctrResponse.body;
-      console.log(JSON.stringify(ctr, null, 2));
+      console.log(JSON.stringify(ctr, null, 2)); // eslint-disable-line no-console
       ({ hiltonGuestId, confirmationNumber, hrccAgentId, guestCallerId, queueName, hotelName, dnis } = (ctr.Attributes || {}));
     } catch(e) {
-      console.error('Error occurred while contacting couchbase:');
-      console.error(e);
+      console.error('Error occurred while contacting couchbase:'); // eslint-disable-line no-console
+      console.error(e); // eslint-disable-line no-console
     }
 
     if (
@@ -85,7 +85,7 @@ module.exports.handler = wrapper(async (event, context) => {
      hiltonGuestId, hrccAgentId, dnis, contactId, and queueName are all required according to HGV.
      */
 
-    console.log("Getting token");
+    console.log("Getting token"); // eslint-disable-line no-console
     const response = await request.post(`${hgvBaseUrl}/token`)
       .proxy(proxy)
       .send({
@@ -95,7 +95,7 @@ module.exports.handler = wrapper(async (event, context) => {
         "Authorization": `Basic ${hgvToken}`,
         "Content-Type": "application/x-www-form-urlencoded",
       });
-    console.log(response.body);
+    console.log(response.body); // eslint-disable-line no-console
 
     const sendingToHgv = {
       hiltonGuestId,
@@ -108,20 +108,18 @@ module.exports.handler = wrapper(async (event, context) => {
       dnis,
     };
 
-    console.log('Sending to HGV:', sendingToHgv);
+    console.log('Sending to HGV:', sendingToHgv); // eslint-disable-line no-console
     const transferResponse = await request.post(`${hgvBaseUrl}/partners/call-center/1.0/hilton/transfer-request`)
       .proxy(proxy)
       .set({
         'Authorization': `Bearer ${response.body.access_token}`,
       })
       .send(sendingToHgv);
-    console.log("Call transfer response");
-    console.log(transferResponse.body);
-    console.log(Object.assign(transferResponse.body, {
-      lambda_success: 1
-    }));
+    console.log("Call transfer response"); // eslint-disable-line no-console
+    console.log(transferResponse.body); // eslint-disable-line no-console
+    console.log(Object.assign(transferResponse.body, { lambda_success: 1 })); // eslint-disable-line no-console
   } catch (err) {
-    console.log(err.response);
+    console.log(err.response); // eslint-disable-line no-console
     throw err;
   }
 });

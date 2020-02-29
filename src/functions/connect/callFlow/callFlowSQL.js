@@ -42,13 +42,13 @@ const processEvent = async (event, context) => {
     } = event.Details.Parameters;
     let currentDateTime;
     if (!current_date_time) {
-      console.log('Using current timestamp to pass operating hours');
+      console.log('Using current timestamp to pass operating hours'); // eslint-disable-line no-console
       currentDateTime = moment.utc();
-      console.log(currentDateTime.format());
+      console.log(currentDateTime.format()); // eslint-disable-line no-console
     } else {
-      console.log('Using timestamp from parameters to pass operating hours');
+      console.log('Using timestamp from parameters to pass operating hours'); // eslint-disable-line no-console
       currentDateTime = moment.utc(current_date_time);
-      console.log(currentDateTime.format());
+      console.log(currentDateTime.format()); // eslint-disable-line no-console
     }
 
     if (/^ping$/i.test(customer_intent)) {
@@ -62,7 +62,7 @@ const processEvent = async (event, context) => {
           WhisperKey: whisper_key,
         },
       });
-      console.log('WhisperItem:', JSON.stringify(whisperItem, null, 2));
+      console.log('WhisperItem:', JSON.stringify(whisperItem, null, 2)); // eslint-disable-line no-console
       if (whisperItem) {
         return sendWhisperResponse({
           propertyCode: whisperItem.PropertyCode,
@@ -104,7 +104,7 @@ const processEvent = async (event, context) => {
       return sendFailResponse(tables.DNIS_ERROR);
     }
 
-    console.log(dnis.toJSON());
+    console.log(dnis.toJSON()); // eslint-disable-line no-console
     const applicationItem = await Application.findById(dnis.ApplicationId);
 
     if (!applicationItem) {
@@ -166,7 +166,7 @@ const processEvent = async (event, context) => {
     for (let i = 0; i < intents.length; i++) {
       const intent = intents[i];
       const possibility = (validateSyntax(intent.Name, intent.Pattern)) && (checkSyntax(intent.Name, intent.Pattern, customer_intent));
-      console.log(intent.Name, intent.Pattern, customer_intent, possibility);
+      console.log(intent.Name, intent.Pattern, customer_intent, possibility); // eslint-disable-line no-console
       if (possibility) {
         possibleIntents.push(intent);
       }
@@ -238,9 +238,9 @@ const processEvent = async (event, context) => {
         ],
       });
       const allocationGroupShId = getSpecialHandlingId(allocationGroupShs.map((_) => _.SpecialHandling), applicationItem.TimeZoneName, currentDateTime);
-      console.log('AllocationGroupSpecialHandling:', allocationGroupShId);
+      console.log('AllocationGroupSpecialHandling:', allocationGroupShId); // eslint-disable-line no-console
       const allocationGroupSh = allocationGroupShs.map((_) => _.SpecialHandling).find((_) => _.Id === allocationGroupShId);
-      console.log('AllocationGroupSH found:', JSON.stringify(allocationGroupSh, null, 2));
+      console.log('AllocationGroupSH found:', JSON.stringify(allocationGroupSh, null, 2)); // eslint-disable-line no-console
       if (allocationGroupSh && allocationGroupSh.AllocationGroupId && allocationGroupSh.Rule === 'allocation_group') {
         destination.AllocationGroupId = allocationGroupSh.AllocationGroupId;
         allocationGroupShApplied = true;
@@ -294,20 +294,20 @@ const processEvent = async (event, context) => {
     }
 
     await Promise.all(promises)
-      .then((res) => console.log(JSON.stringify(res)))
-      .catch((err) => console.log(err));
+      .then((res) => console.log(JSON.stringify(res))) // eslint-disable-line no-console
+      .catch((err) => console.log(err)); // eslint-disable-line no-console
 
     dnis.XferNumberLocal = callSpecialHandling && callSpecialHandling.XferNumberLocal || dnis.XferNumberLocal;
     dnis.XferNumberCountryCode = callSpecialHandling && callSpecialHandling.XferNumberCountryCode || dnis.XferNumberCountryCode;
 
     dnis.TrapDoorFlag = callSpecialHandling && callSpecialHandling.TrapDoorFlag || dnis.TrapDoorFlag;
 
-    console.log('MusicPrompt:', JSON.stringify(musicPrompt, null, 2));
-    console.log('WhisperPrompt:', JSON.stringify(whisperPrompt, null, 2));
-    console.log('QueueAnnouncementPrompt:', JSON.stringify(queueAnnouncementPrompt, null, 2));
-    console.log('AppAnnouncementPrompt:', JSON.stringify(appAnnouncementPrompt, null, 2));
-    console.log('XferAnnouncementPrompt:', JSON.stringify(xferAnnouncementPrompt, null, 2));
-    console.log('DestAnnouncementPrompt:', JSON.stringify(destAnnouncementPrompt, null, 2));
+    console.log('MusicPrompt:', JSON.stringify(musicPrompt, null, 2)); // eslint-disable-line no-console
+    console.log('WhisperPrompt:', JSON.stringify(whisperPrompt, null, 2)); // eslint-disable-line no-console
+    console.log('QueueAnnouncementPrompt:', JSON.stringify(queueAnnouncementPrompt, null, 2)); // eslint-disable-line no-console
+    console.log('AppAnnouncementPrompt:', JSON.stringify(appAnnouncementPrompt, null, 2)); // eslint-disable-line no-console
+    console.log('XferAnnouncementPrompt:', JSON.stringify(xferAnnouncementPrompt, null, 2)); // eslint-disable-line no-console
+    console.log('DestAnnouncementPrompt:', JSON.stringify(destAnnouncementPrompt, null, 2)); // eslint-disable-line no-console
 
     whisperPrompt.Language = whisperPrompt.Language || dnis.Language;
     return sendSuccessResponseSQL({

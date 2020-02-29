@@ -4,7 +4,7 @@ const { tables } = require('../../../utils/error/errorMessages');
 const checkQueue = async ({
   routingMethod, allocationGroupId, queueSelectionRuleId, queueId, callRoutingTypeId, callerId, cb, applicationId, timeZone,
 }) => {
-  console.log('RoutingMethod:', routingMethod);
+  console.log('RoutingMethod:', routingMethod); // eslint-disable-line no-console
   if (routingMethod === 'DirectToQueue') {
     return directToQueue({
       cb, queueId, callRoutingTypeId, callerId, applicationId, timeZone,
@@ -22,7 +22,7 @@ const checkQueue = async ({
 const getQueue = async ({ queueId }) => {
   const { Queue, Language, ConnectQueue } = require('../../../models');
   let queueItem;
-  console.log(queueId);
+  console.log(queueId); // eslint-disable-line no-console
   try {
     queueItem = await Queue.findById(queueId, {
       include: [
@@ -31,11 +31,11 @@ const getQueue = async ({ queueId }) => {
       ],
     });
   } catch (err) {
-    console.log('Error:', err);
+    console.log('Error:', err); // eslint-disable-line no-console
     queueItem = null;
   }
 
-  console.log(JSON.stringify(queueItem, null, 2));
+  console.log(JSON.stringify(queueItem, null, 2)); // eslint-disable-line no-console
   return queueItem || queueItem.toJSON();
 };
 
@@ -90,7 +90,7 @@ const percentAllocationQueue = async ({
   if (!allocationRules.length) throw (tables.ALLOCATION_ERROR);
   const allocationGroup = allocationRules[0].AllocationGroup;
 
-  console.log('AllocationRules', JSON.stringify(allocationRules));
+  console.log('AllocationRules', JSON.stringify(allocationRules)); // eslint-disable-line no-console
 
   // Get TotalCount
   const totalCount = allocationRules.reduce((sum, rule) => sum + rule.Count, 0);
@@ -137,8 +137,8 @@ const percentAllocationQueue = async ({
     }),
   ]);
 
-  console.log('AllocationGroup', JSON.stringify(allocationGroup, null, 2));
-  console.log('FinalRule', JSON.stringify(finalRule, null, 2));
+  console.log('AllocationGroup', JSON.stringify(allocationGroup, null, 2)); // eslint-disable-line no-console
+  console.log('FinalRule', JSON.stringify(finalRule, null, 2)); // eslint-disable-line no-console
 
   const { QueueId } = finalRule;
   return await getQueue({

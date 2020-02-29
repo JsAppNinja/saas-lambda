@@ -12,7 +12,7 @@ const processEvent = async (event, context) => {
   let startDate;
   if (start_timestamp) {
     startDate = new Date(start_timestamp);
-    console.log(startDate);
+    console.log(startDate); // eslint-disable-line no-console
   } else {
     startDate = new Date();
   }
@@ -32,23 +32,23 @@ const processEvent = async (event, context) => {
     });
 
     if (!dnisItem) {
-      console.log('No DNIS');
+      console.log('No DNIS'); // eslint-disable-line no-console
       return sendFailResponse(tables.DNIS_ERROR);
     }
-    console.log(JSON.stringify(dnisItem));
+    console.log(JSON.stringify(dnisItem)); // eslint-disable-line no-console
 
     const trapDoorFlag = dnisItem.TrapDoorFlag;
 
     if (trapDoorFlag) {
       const timeDiff = Date.now() - startDate.getTime();
-      console.log('Time difference', timeDiff);
+      console.log('Time difference', timeDiff); // eslint-disable-line no-console
       if (timeDiff > dnisItem.TrapDoorThreshold * 1000) {
         const response = {
           lambda_success: 1,
           trap_door_flag: 'Y',
         };
         const trapDoorAnnouncementPrompt = await getPrompt({ id: dnisItem.TrapDoorAnnouncementPromptId });
-        console.log(JSON.stringify(trapDoorAnnouncementPrompt, null, 2));
+        console.log(JSON.stringify(trapDoorAnnouncementPrompt, null, 2)); // eslint-disable-line no-console
         addPromptToResponse(response, 'trap_door_announcement', trapDoorAnnouncementPrompt);
 
         // Normalize response
@@ -61,7 +61,7 @@ const processEvent = async (event, context) => {
       trap_door_flag: 'N',
     });
   } catch (err) {
-    console.log(err);
+    console.log(err); // eslint-disable-line no-console
     throw err;
   }
 };
