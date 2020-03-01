@@ -7,10 +7,6 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false,
       },
-      customer_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
       code: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -31,7 +27,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate() {},
+        associate({ organizations, customers, customer_users }) {
+          settings.hasMany(organizations);
+          settings.hasMany(customers);
+          settings.hasMany(customer_users);
+        },
       },
     }
   );

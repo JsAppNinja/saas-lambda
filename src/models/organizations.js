@@ -1,14 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
-  const augmentt_system_users = sequelize.define(
-    'augmentt_system_users',
+  const organizations = sequelize.define(
+    'organizations',
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
       },
-      amazon_id: {
-        type: DataTypes.INTEGER,
+      organization_name: {
+        type: DataTypes.STRING,
         unique: true,
         allowNull: false,
       },
@@ -20,8 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ settings }) {
-          augmentt_system_users.hasMany(settings, {
+        associate({ customers, settings }) {
+          organizations.hasMany(customers);
+          organizations.belongsTo(settings, {
             as: 'settings',
             foreignKey: 'settings',
             sourceKey: 'id',
@@ -30,5 +31,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
-  return augmentt_system_users;
+  return organizations;
 };

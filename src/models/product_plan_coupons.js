@@ -15,14 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate() {},
-        // associate({ service_provider }) {
-        //   product_plan_coupons.belongsToMany(service_provider, {
-        //     as: 'service_provider',
-        //     foreignKey: 'id',
-        //     targetKey: 'coupons',
-        //   });
-        // },
+        associate({ product_plans }) {
+          product_plan_coupons.hasMany(product_plans);
+        },
       },
     }
   );

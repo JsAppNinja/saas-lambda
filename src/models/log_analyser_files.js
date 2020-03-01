@@ -1,27 +1,33 @@
 module.exports = (sequelize, DataTypes) => {
-  const product_scopes = sequelize.define(
-    'product_scopes',
+  const log_analyser_files = sequelize.define(
+    'log_analyser_files',
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
       },
-      scope_name: {
+      external_id: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      scope_code: {
+      file_name: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      upload_date: {
+        type: DataTypes.DATE,
         allowNull: false,
       },
     },
     {
       freezeTableName: true,
       classMethods: {
-        associate() {},
+        associate({ log_analysers }) {
+          log_analyser_files.hasMany(log_analysers);
+        },
       },
     }
   );
-  return product_scopes;
+  return log_analyser_files;
 };

@@ -9,10 +9,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       amazon_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        unique: true,
       },
-      departments: {
+      role: {
+        type: DataTypes.STRING,
+      },
+      customer: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -24,14 +25,14 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ departments, settings }) {
-          customer_users.hasMany(departments, {
-            as: 'departments',
-            sourceKey: 'departments',
-          });
-          customer_users.hasMany(settings, {
+        associate({ customers, settings }) {
+          customer_users.belongsTo(settings, {
             as: 'settings',
-            sourceKey: 'settings',
+            foreignKey: 'settings',
+          });
+          customer_users.belongsTo(customers, {
+            as: 'customers',
+            foreignKey: 'customer',
           });
         },
       },

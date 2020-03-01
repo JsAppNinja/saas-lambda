@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      results: {
-        type: DataTypes.INTEGER,
+      source_files: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull: false,
       },
       rule_set: {
@@ -27,12 +27,13 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ log_analyser_results, log_analyser_rule_sets }) {
-          log_analysers.hasMany(log_analyser_results, {
-            as: 'log_analyser_results',
-            sourceKey: 'results',
+        associate({ customers, log_analyser_files, log_analyser_rule_sets }) {
+          log_analysers.hasMany(customers);
+          log_analysers.belongsTo(log_analyser_files, {
+            as: 'log_analyser_files',
+            foreignKey: 'source_files',
           });
-          log_analysers.hasMany(log_analyser_rule_sets, {
+          log_analysers.belongsTo(log_analyser_rule_sets, {
             as: 'log_analyser_rule_sets',
             sourceKey: 'rule_set',
           });

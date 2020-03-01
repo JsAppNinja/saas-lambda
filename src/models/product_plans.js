@@ -8,22 +8,29 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       external_id: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING,
         allowNull: false,
       },
       product_scopes: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        allowNull: false,
+      },
+      coupons: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull: false,
       },
     },
     {
       freezeTableName: true,
       classMethods: {
-        associate({ product_scopes }) {
-          product_plans.hasMany(product_scopes, {
+        associate({ product_scopes, product_plan_coupons }) {
+          product_plans.belongsTo(product_scopes, {
             as: 'product_scopes',
             foreignKey: 'product_scopes',
-            targetKey: 'Id',
+          });
+          product_plans.belongsTo(product_plan_coupons, {
+            as: 'product_plan_coupons',
+            foreignKey: 'coupons',
           });
         },
       },
