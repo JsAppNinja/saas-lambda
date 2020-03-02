@@ -1,5 +1,5 @@
 const { successResponse, InvalidResponse } = require('../../../utils/lambda-response');
-const models = require('../../models');
+const models = require('../../../models');
 const Customer = models.customers;
 const Subscription = models.subscriptions;
 const CustomerUser = models.customer_users;
@@ -11,11 +11,11 @@ module.exports.handler = async (event, httpMethod) => {
   switch (method) {
     case 'GET':
       const customerId = event.customerId;
-      const oneCustomer = await Customer.findByPk(customerId);
+      // const oneCustomer = await Customer.findByPk(customerId);
       const response1 = successResponse({
         message: 'We are getting your requested customer information!',
         input: event,
-        content: oneCustomer,
+        // content: oneCustomer,
       });
       return response1;
     case 'POST':
