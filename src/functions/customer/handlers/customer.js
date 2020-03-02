@@ -1,4 +1,4 @@
-const { successResponse } = require('../../../utils/lambda-response');
+const { successResponse, InvalidResponse } = require('../../../utils/lambda-response');
 const models = require('../../models');
 const Customer = models.customers;
 const Subscription = models.subscriptions;
@@ -12,36 +12,40 @@ module.exports.handler = async (event, httpMethod) => {
     case 'GET':
       const customerId = event.customerId;
       const oneCustomer = await Customer.findByPk(customerId);
-      const response = successResponse({
+      const response1 = successResponse({
         message: 'We are getting your requested customer information!',
         input: event,
         content: oneCustomer,
       });
-      return response;
+      return response1;
     case 'POST':
       const result = await Customer.update(
         {title: req.body.title},
         {returning: true, where: {id: req.params.id} }
       );
-      const response = successResponse({
+      const response2 = successResponse({
         message: 'We are updating your requested customer information!',
         input: event,
         content: result,
       });
-      return response;
+      return response2;
     case 'DELETE':
       const isDeleted = await Customer.destroy({
         where: {
           id: customerId
         }
        });
-      const response = successResponse({
+      const response3 = successResponse({
         message: 'We are deleting your requested customer information!',
         input: event,
         content: isDeleted,
       });
-      return response;
+      return response3;
     default:
-      return requestSuccessResponse;
+      const generalResponse = successResponse({
+        message: 'We are handling your requested customer information!',
+        input: event,
+      });
+      return generalResponse;
   }
 };
