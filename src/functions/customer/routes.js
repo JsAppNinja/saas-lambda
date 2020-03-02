@@ -1,5 +1,5 @@
 module.exports = {
-  CUSTOMERS: '/augmentt/customer',
+  CUSTOMERS: '/augmentt/organization/:organizationId/customer',
   CUSTOMER: '/augmentt/customer/:customerId',
   CUSTOMER_SETTINGS: '/augmentt/customer/:customerId/setting',
   CUSTOMER_SETTING: '/augmentt/customer/:customerId/setting/:settingId',
