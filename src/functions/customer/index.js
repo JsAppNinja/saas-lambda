@@ -46,32 +46,32 @@ module.exports.handler = async (event, context) => {
   if (patternIndex < 0 ) {
     return resourceNotFoundResponse;
   } else {
-    const event = actions[patternIndex];
-    switch (event) {
+    const eventAction = actions[patternIndex];
+    switch (eventAction) {
       case ACTION.CUSTOMERS:
-        return customersHandler(event, context);
+        return customersHandler(event, httpMethod);
       case ACTION.CUSTOMER:
-        return customerHandler(event, context);
+        return customerHandler(event, httpMethod);
       case ACTION.CUSTOMER_SETTINGS:
-        return customerSettingsHandler(event, context);
+        return customerSettingsHandler(event, httpMethod);
       case ACTION.CUSTOMER_SETTING:
-        return customerSettingHandler(event, context);
+        return customerSettingHandler(event, httpMethod);
       case ACTION.CUSTOMER_USERS:
-        return customerUsersHandler(event, context);
+        return customerUsersHandler(event, httpMethod);
       case ACTION.CUSTOMER_USER:
-        return customerUserHandler(event, context);
+        return customerUserHandler(event, httpMethod);
       case ACTION.CUSTOMER_USER_SETTINGS:
-        return customerUserSettingsHandler(event, context);
+        return customerUserSettingsHandler(event, httpMethod);
       case ACTION.CUSTOMER_USER_SETTING:
-        return customerUserSettingHandler(event, context);
+        return customerUserSettingHandler(event, httpMethod);
       case ACTION.CUSTOMER_SUBSCRIPTIONS:
-        return customerSubscriptionsHandler(event, context);
+        return customerSubscriptionsHandler(event, httpMethod);
       case ACTION.CUSTOMER_SUBSCRIPTION:
-        return customerSubscriptionHandler(event, context);  
+        return customerSubscriptionHandler(event, httpMethod);  
       case ACTION.CUSTOMER_SUBSCRIPTION_COUPONS:
-        return customerSubscriptionCouponsHandler(event, context); 
+        return customerSubscriptionCouponsHandler(event, httpMethod); 
       case ACTION.CUSTOMER_SUBSCRIPTION_COUPON:
-        return customerSubscriptionCouponHandler(event, context); 
+        return customerSubscriptionCouponHandler(event, httpMethod); 
       default:
         return requestSuccessResponse;
     }

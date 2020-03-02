@@ -1,10 +1,47 @@
 const { successResponse } = require('../../../utils/lambda-response');
+const models = require('../../models');
+const Customer = models.customers;
+const Subscription = models.subscriptions;
+const CustomerUser = models.customer_users;
+const Setting = models.settings;
 
-module.exports.handler = async event => {
-  const response = successResponse({
-    message: 'We are updating your requested customer information!',
-    input: event,
-  });
+module.exports.handler = async (event, httpMethod) => {
 
-  return response;
+  const method = httpMethod;
+  switch (method) {
+    case 'GET':
+      const customerId = event.customerId;
+      const oneCustomer = await Customer.findByPk(customerId);
+      const response = successResponse({
+        message: 'We are getting your requested customer information!',
+        input: event,
+        content: oneCustomer,
+      });
+      return response;
+    case 'POST':
+      const result = await Customer.update(
+        {title: req.body.title},
+        {returning: true, where: {id: req.params.id} }
+      );
+      const response = successResponse({
+        message: 'We are updating your requested customer information!',
+        input: event,
+        content: result,
+      });
+      return response;
+    case 'DELETE':
+      const isDeleted = await Customer.destroy({
+        where: {
+          id: customerId
+        }
+       });
+      const response = successResponse({
+        message: 'We are deleting your requested customer information!',
+        input: event,
+        content: isDeleted,
+      });
+      return response;
+    default:
+      return requestSuccessResponse;
+  }
 };
