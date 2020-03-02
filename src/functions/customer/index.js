@@ -39,7 +39,6 @@ module.exports.handler = async (event, context) => {
   const patternIndex = routes.findIndex(route => {
     const pattern = new UrlPattern(route);
     const result = pattern.match(path);
-    console.log('Testing patterns =>', pattern, result); // eslint-disable-line no-console
     return result != null;
   });
 
