@@ -14,7 +14,6 @@ const organizationCustomerHandler = require('./handlers/organizations').handler;
 
 module.exports.handler = async (event, context) => {
   const { path } = event;
-  const { httpMethod } = event;
 
   const requestSuccessResponse = successResponse({
     message: 'Your request has been executed successfully!',
@@ -39,13 +38,14 @@ module.exports.handler = async (event, context) => {
     return resourceNotFoundResponse;
   }
   const eventAction = actions[patternIndex];
+  const eventRoute = routes[patternIndex];
   switch (eventAction) {
     case ACTION.ORGANIZATIONS:
-      return organizationsHandler(event, httpMethod);
+      return organizationsHandler(event, eventRoute);
     case ACTION.ORGANIZATION:
-      return organizationHandler(event, httpMethod);
+      return organizationHandler(event, eventRoute);
     case ACTION.ORGANIZATION_CUSTOMER:
-      return organizationCustomerHandler(event, httpMethod);
+      return organizationCustomerHandler(event, eventRoute);
     default:
       return requestSuccessResponse;
   }
