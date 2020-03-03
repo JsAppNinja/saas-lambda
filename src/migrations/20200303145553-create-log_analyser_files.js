@@ -1,12 +1,23 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('service_providers', {
+    return queryInterface.createTable('log_analyser_files', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+      },
+      file_name: {
+        type: Sequelize.STRING
+      },
+      external_id: {
+        type: Sequelize.STRING
+      },
+      upload_date: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       createdAt: {
         allowNull: false,
@@ -21,6 +32,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('service_providers');
+    return queryInterface.dropTable('log_analyser_files');
   }
 };

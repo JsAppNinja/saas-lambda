@@ -1,20 +1,20 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('product_subscription_transactions', {
+    return queryInterface.createTable('subscriptions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      external_id: {
+      chargebee_customer_id: {
+        type: DataTypes.STRING,
         allowNull: false,
-        type: Sequelize.STRING
       },
-      status: {
+      isActive: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -29,6 +29,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('product_subscription_transactions');
+    return queryInterface.dropTable('subscriptions');
   }
 };

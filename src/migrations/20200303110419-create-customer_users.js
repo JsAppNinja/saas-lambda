@@ -11,6 +11,10 @@ module.exports = {
       amazon_id: {
         type: Sequelize.INTEGER
       },
+      role: {
+        type: Sequelize.String,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
