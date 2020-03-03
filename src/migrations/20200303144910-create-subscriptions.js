@@ -9,11 +9,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       chargebee_customer_id: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       isActive: {
-        type: DataTypes.BOOLEAN,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
       createdAt: {
