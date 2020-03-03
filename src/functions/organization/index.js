@@ -1,0 +1,52 @@
+const UrlPattern = require('url-pattern');
+
+const ACTION = require('./constants');
+const ROUTES = require('./routes');
+
+const {
+  successResponse,
+  ResourceNotFoundResponse,
+} = require('../../utils/lambda-response');
+
+const organizationsHandler = require('./handlers/organizations').handler;
+const organizationHandler = require('./handlers/organization').handler;
+const organizationCustomerHandler = require('./handlers/organizations').handler;
+
+module.exports.handler = async (event, context) => {
+  const { path } = event;
+  const { httpMethod } = event;
+
+  const requestSuccessResponse = successResponse({
+    message: 'Your request has been executed successfully!',
+    input: event,
+  });
+
+  const resourceNotFoundResponse = ResourceNotFoundResponse({
+    message:
+      'The requested API endpoint is invalid. Please input the correct URL!',
+    input: event,
+  });
+
+  const routes = Object.values(ROUTES);
+  const actions = Object.keys(ROUTES);
+  const patternIndex = routes.findIndex(route => {
+    const pattern = new UrlPattern(route);
+    const result = pattern.match(path);
+    return result != null;
+  });
+
+  if (patternIndex < 0) {
+    return resourceNotFoundResponse;
+  }
+  const eventAction = actions[patternIndex];
+  switch (eventAction) {
+    case ACTION.ORGANIZATIONS:
+      return organizationsHandler(event, httpMethod);
+    case ACTION.ORGANIZATION:
+      return organizationHandler(event, httpMethod);
+    case ACTION.ORGANIZATION_CUSTOMER:
+      return organizationCustomerHandler(event, httpMethod);
+    default:
+      return requestSuccessResponse;
+  }
+};
