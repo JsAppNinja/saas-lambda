@@ -44,7 +44,7 @@ const sendSuccessDNISResponse = ({
   response.screen_pop = dnis.ScreenPop;
   response.xfer_number = dnis.XferNumberLocal && dnis.XferNumberLocal.replace(/\+/g, '');
   response.xfer_number_country = dnis.XferNumberCountryCode && dnis.XferNumberCountryCode.replace(/\+/g, '');
-  
+
   response.trapDoorFlag = dnis.TrapDoorFlag;
 
   response.app_name = application.Name;

@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
           log_analyser_rules.hasMany(log_analysers);
         },
       },
-    }
+    },
   );
   return log_analyser_rules;
 };

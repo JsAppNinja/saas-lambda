@@ -1,29 +1,25 @@
-'use strict';
+
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('customers', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      customer_name: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      }
-    });
-  },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('customers');
-  }
+  up: (queryInterface, Sequelize) => queryInterface.createTable('customers', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: Sequelize.INTEGER,
+    },
+    customer_name: {
+      type: Sequelize.STRING,
+    },
+    createdAt: {
+      allowNull: false,
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+    updatedAt: {
+      allowNull: false,
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+  }),
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('customers'),
 };

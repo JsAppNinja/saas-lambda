@@ -49,7 +49,6 @@ module.exports = async (items, timeZone, currentDateTime) => {
       }
 
       DestinationObjects.forEach((item, index) => {
-
         if (index === 0) { // first element
           minSequence = item.SeqNum; // set first one like the lowest one
           lowest = index;

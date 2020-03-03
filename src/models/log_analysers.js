@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
           });
         },
       },
-    }
+    },
   );
   return log_analysers;
 };

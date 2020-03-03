@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
           });
         },
       },
-    }
+    },
   );
   return product_plans;
 };

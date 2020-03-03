@@ -1,4 +1,3 @@
-'use strict';
 
 module.exports = {
   up: (queryInterface, Sequelize) => Promise.all([
@@ -9,10 +8,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'settings',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'cascade',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       },
     ),
     queryInterface.addColumn(
@@ -22,10 +21,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'organizations',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'cascade',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       },
     ),
     queryInterface.addColumn(
@@ -35,10 +34,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'subscriptions',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'cascade',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       },
     ),
     queryInterface.addColumn(
@@ -48,10 +47,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'customer_users',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'cascade',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       },
     ),
     queryInterface.addColumn(
@@ -61,10 +60,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'settings',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'cascade',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       },
     ),
     queryInterface.addColumn(
@@ -74,10 +73,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'log_analysers',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'cascade',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       },
     ),
     queryInterface.addColumn(
@@ -87,10 +86,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'customers',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'cascade',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       },
     ),
     queryInterface.addColumn(
@@ -100,10 +99,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'customers',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'cascade',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       },
     ),
     queryInterface.addColumn(
@@ -113,10 +112,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'customers',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'cascade',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       },
     ),
     queryInterface.addColumn(
@@ -126,10 +125,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'settings',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'cascade',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       },
     ),
     queryInterface.addColumn(
@@ -139,10 +138,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'log_analyser_files',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'cascade',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       },
     ),
     queryInterface.addColumn(
@@ -152,10 +151,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'product_plans',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'cascade',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       },
     ),
     queryInterface.addColumn(
@@ -165,10 +164,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'product_scopes',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'cascade',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       },
     ),
     queryInterface.addColumn(
@@ -178,10 +177,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'product_plan_coupons',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'cascade',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       },
     ),
   ]),

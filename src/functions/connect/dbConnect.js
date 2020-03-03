@@ -9,5 +9,5 @@ module.exports.handler = wrapper(async (event, context) => {
   return {
     lambda_success: 1,
     transfer_number: phoneNumber,
-  }
+  };
 });

@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
           });
         },
       },
-    }
+    },
   );
   return customer_users;
 };

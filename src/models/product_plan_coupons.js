@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
           product_plan_coupons.hasMany(product_plans);
         },
       },
-    }
+    },
   );
   return product_plan_coupons;
 };

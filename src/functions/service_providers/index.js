@@ -8,8 +8,8 @@ const { successResponse } = require('../../utils/lambda-response');
 
 module.exports.handler = async (event, context) => {
   console.log('=== event log ===', event); // eslint-disable-line no-console
-  const path = event.path;
-  const httpMethod = event.httpMethod;
+  const { path } = event;
+  const { httpMethod } = event;
   const response = successResponse({
     message: 'Go Serverless! Your function executed successfully!',
     input: event,

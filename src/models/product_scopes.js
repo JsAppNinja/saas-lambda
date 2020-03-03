@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
           product_scopes.hasMany(product_plans);
         },
       },
-    }
+    },
   );
   return product_scopes;
 };

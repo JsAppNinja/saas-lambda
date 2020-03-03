@@ -21,8 +21,8 @@ const customerUserSettingsHandler = require('./handlers/customerUserSettings').h
 module.exports.handler = async (event, context) => {
   console.log('=== event log ===', event); // eslint-disable-line no-console
 
-  const path = event.path;
-  const httpMethod = event.httpMethod;
+  const { path } = event;
+  const { httpMethod } = event;
 
   const requestSuccessResponse = successResponse({
     message: 'Your request has been executed successfully!',
@@ -36,44 +36,43 @@ module.exports.handler = async (event, context) => {
 
   const routes = Object.values(ROUTES);
   const actions = Object.keys(ROUTES);
-  const patternIndex = routes.findIndex(route => {
+  const patternIndex = routes.findIndex((route) => {
     const pattern = new UrlPattern(route);
     const result = pattern.match(path);
     return result != null;
   });
 
   console.log('search result is ', patternIndex); // eslint-disable-line no-console
-  if (patternIndex < 0 ) {
+  if (patternIndex < 0) {
     return resourceNotFoundResponse;
-  } else {
-    const eventAction = actions[patternIndex];
-    switch (eventAction) {
-      case ACTION.CUSTOMERS:
-        return customersHandler(event, httpMethod);
-      case ACTION.CUSTOMER:
-        return customerHandler(event, httpMethod);
-      case ACTION.CUSTOMER_SETTINGS:
-        return customerSettingsHandler(event, httpMethod);
-      case ACTION.CUSTOMER_SETTING:
-        return customerSettingHandler(event, httpMethod);
-      case ACTION.CUSTOMER_USERS:
-        return customerUsersHandler(event, httpMethod);
-      case ACTION.CUSTOMER_USER:
-        return customerUserHandler(event, httpMethod);
-      case ACTION.CUSTOMER_USER_SETTINGS:
-        return customerUserSettingsHandler(event, httpMethod);
-      case ACTION.CUSTOMER_USER_SETTING:
-        return customerUserSettingHandler(event, httpMethod);
-      case ACTION.CUSTOMER_SUBSCRIPTIONS:
-        return customerSubscriptionsHandler(event, httpMethod);
-      case ACTION.CUSTOMER_SUBSCRIPTION:
-        return customerSubscriptionHandler(event, httpMethod);  
-      case ACTION.CUSTOMER_SUBSCRIPTION_COUPONS:
-        return customerSubscriptionCouponsHandler(event, httpMethod); 
-      case ACTION.CUSTOMER_SUBSCRIPTION_COUPON:
-        return customerSubscriptionCouponHandler(event, httpMethod); 
-      default:
-        return requestSuccessResponse;
-    }
+  }
+  const eventAction = actions[patternIndex];
+  switch (eventAction) {
+    case ACTION.CUSTOMERS:
+      return customersHandler(event, httpMethod);
+    case ACTION.CUSTOMER:
+      return customerHandler(event, httpMethod);
+    case ACTION.CUSTOMER_SETTINGS:
+      return customerSettingsHandler(event, httpMethod);
+    case ACTION.CUSTOMER_SETTING:
+      return customerSettingHandler(event, httpMethod);
+    case ACTION.CUSTOMER_USERS:
+      return customerUsersHandler(event, httpMethod);
+    case ACTION.CUSTOMER_USER:
+      return customerUserHandler(event, httpMethod);
+    case ACTION.CUSTOMER_USER_SETTINGS:
+      return customerUserSettingsHandler(event, httpMethod);
+    case ACTION.CUSTOMER_USER_SETTING:
+      return customerUserSettingHandler(event, httpMethod);
+    case ACTION.CUSTOMER_SUBSCRIPTIONS:
+      return customerSubscriptionsHandler(event, httpMethod);
+    case ACTION.CUSTOMER_SUBSCRIPTION:
+      return customerSubscriptionHandler(event, httpMethod);
+    case ACTION.CUSTOMER_SUBSCRIPTION_COUPONS:
+      return customerSubscriptionCouponsHandler(event, httpMethod);
+    case ACTION.CUSTOMER_SUBSCRIPTION_COUPON:
+      return customerSubscriptionCouponHandler(event, httpMethod);
+    default:
+      return requestSuccessResponse;
   }
 };

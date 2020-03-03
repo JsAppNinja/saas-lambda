@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
           });
         },
       },
-    }
+    },
   );
   return log_analyser_rule_sets;
 };

@@ -34,7 +34,9 @@ const getSpecialHandling = async ({
     SpecialHandling,
   } = require('../../../models');
 
-  console.log({ queueId, dnisId, callerId, applicationId, timeZone }); // eslint-disable-line no-console
+  console.log({
+    queueId, dnisId, callerId, applicationId, timeZone,
+  }); // eslint-disable-line no-console
   let specialHandlingRule;
   let specialHandlingHangup;
   let specialConnectQueueId;

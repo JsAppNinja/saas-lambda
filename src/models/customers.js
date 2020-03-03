@@ -43,7 +43,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ customer_users, settings, log_analysers, subscriptions }) {
+        associate({
+          customer_users, settings, log_analysers, subscriptions,
+        }) {
           customers.hasMany(customer_users);
           customers.belongsTo(customer_users, {
             as: 'customer_users',
@@ -67,7 +69,7 @@ module.exports = (sequelize, DataTypes) => {
           });
         },
       },
-    }
+    },
   );
   return customers;
 };

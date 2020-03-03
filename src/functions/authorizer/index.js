@@ -1,10 +1,10 @@
 const { AuthDeniedResponse } = require('../../utils/lambda-response');
 
-module.exports.handler = async (event, context) => {
-  const headers = event.headers;
-  const queryStringParameters = event.queryStringParameters;
-  const pathParameters = event.pathParameters;
-  const stageVariables = event.stageVariables;
+module.exports.handler = async (event) => {
+  const { headers } = event;
+  const { queryStringParameters } = event;
+  const { pathParameters } = event;
+  const { stageVariables } = event;
 
   // Parse the input for the parameter values
   const tmp = event.methodArn.split(':');
@@ -19,27 +19,26 @@ module.exports.handler = async (event, context) => {
     resource += apiGatewayArnTmp[3];
   }
 
-  /* Perform authorization to return the Allow policy for correct parameters and 
+  /* Perform authorization to return the Allow policy for correct parameters and
   the 'Unauthorized' error, otherwise. */
   const authResponse = {};
   const condition = {};
   condition.IpAddress = {};
 
-  if (headers.HeaderAuth1 === "headerValue1"
-      && queryStringParameters.QueryString1 === "queryValue1"
-      && stageVariables.StageVar1 === "stageValue1") {
+  if (headers.HeaderAuth1 === 'headerValue1'
+      && queryStringParameters.QueryString1 === 'queryValue1'
+      && stageVariables.StageVar1 === 'stageValue1') {
     return generateAllow('me', event.methodArn);
-  }  else {
-    const response = AuthDeniedResponse({
-      message: 'You are not authorized to access to this resource',
-      input: event,
-    })
-    return response;
   }
-}
+  const response = AuthDeniedResponse({
+    message: 'You are not authorized to access to this resource',
+    input: event,
+  });
+  return response;
+};
 
 // Help function to generate an IAM policy
-const generatePolicy = function(principalId, effect, resource) {
+const generatePolicy = function (principalId, effect, resource) {
   const authResponse = {};
   authResponse.principalId = principalId;
   if (effect && resource) {
@@ -55,17 +54,17 @@ const generatePolicy = function(principalId, effect, resource) {
   }
 
   authResponse.context = {
-    "stringKey": "stringval",
-    "numberKey": 123,
-    "booleanKey": true
+    stringKey: 'stringval',
+    numberKey: 123,
+    booleanKey: true,
   };
   return authResponse;
-}
+};
 
-const generateAllow = function(principalId, resource) {
+const generateAllow = function (principalId, resource) {
   return generatePolicy(principalId, 'Allow', resource);
-}
+};
 
-const generateDeny = function(principalId, resource) {
+const generateDeny = function (principalId, resource) {
   return generatePolicy(principalId, 'Deny', resource);
-}
+};

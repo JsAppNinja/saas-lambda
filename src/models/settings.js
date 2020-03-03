@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
           settings.hasMany(customer_users);
         },
       },
-    }
+    },
   );
   return settings;
 };
