@@ -5,11 +5,6 @@ const {
   InvalidResponse,
 } = require('../../../utils/lambda-response');
 const models = require('../../../models');
-
-const Customer = models.customers;
-const Subscription = models.subscriptions;
-const CustomerUser = models.customer_users;
-const Setting = models.settings;
 const Organization = models.organizations;
 
 module.exports.handler = async (event, eventRoute) => {
@@ -22,26 +17,33 @@ module.exports.handler = async (event, eventRoute) => {
 
   switch (httpMethod) {
     case 'GET':
-      const response1 = successResponse({
+      const ogData = await Organization.findAll({
+        attributes: ['id', 'organization_name', 'settings'],
+      });
+      const getResponse = successResponse({
         message: 'We are getting your requested customer information!',
         input: event,
-        // content: oneCustomer,
+        content: ogData,
       });
-      return response1;
+      return getResponse;
     case 'PUT':
-      const result = await Customer.update(
-        { title: req.body.title },
-        { returning: true, where: { id: req.params.id } }
+      const newData = await Organization.update(
+        { organization_name: 'new Organization' },
+        {
+          where: {
+            id: 2,
+          },
+        }
       );
-      const response2 = successResponse({
+      const putResponse = successResponse({
         message: 'We are updating your requested customer information!',
         input: event,
-        content: result,
+        content: newData,
       });
-      return response2;
+      return putResponse;
     default:
-      const generalResponse = successResponse({
-        message: 'We are handling your requested customer information!',
+      const generalResponse = InvalidResponse({
+        message: 'We can not handle your request!',
         input: event,
       });
       return generalResponse;
