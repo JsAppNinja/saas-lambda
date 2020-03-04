@@ -11,30 +11,27 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      product_scopes: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
-        allowNull: false,
-      },
-      coupons: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
-        allowNull: false,
+      coupon: {
+        type: DataTypes.INTEGER,
       },
     },
     {
       freezeTableName: true,
       classMethods: {
-        associate({ product_scopes, product_plan_coupons }) {
+        associate({ subscriptions, product_scopes, product_plan_coupons }) {
+          product_plans.hasMany(subscriptions);
           product_plans.belongsTo(product_scopes, {
             as: 'product_scopes',
-            foreignKey: 'product_scopes',
+            foreignKey: 'id',
+            sourceKey: 'product_plan',
           });
           product_plans.belongsTo(product_plan_coupons, {
             as: 'product_plan_coupons',
-            foreignKey: 'coupons',
+            foreignKey: 'coupon',
           });
         },
       },
-    },
+    }
   );
   return product_plans;
 };

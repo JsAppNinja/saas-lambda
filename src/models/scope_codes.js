@@ -1,17 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
-  const log_analyser_rules = sequelize.define(
-    'log_analyser_rules',
+  const scope_codes = sequelize.define(
+    'scope_codes',
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
       },
-      value: {
+      scope_name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      alias: {
+      code: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -19,11 +19,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       freezeTableName: true,
       classMethods: {
-        associate({ log_analysers }) {
-          log_analyser_rules.hasMany(log_analysers);
+        associate({ product_scopes }) {
+          scope_codes.hasMany(product_scopes);
         },
       },
-    },
+    }
   );
-  return log_analyser_rules;
+  return scope_codes;
 };

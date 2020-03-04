@@ -7,6 +7,9 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false,
       },
+      customer: {
+        type: DataTypes.INTEGER,
+      },
       source_information: {
         type: DataTypes.TEXT,
         allowNull: false,
@@ -16,30 +19,24 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       source_files: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
-        allowNull: false,
-      },
-      rule_set: {
         type: DataTypes.INTEGER,
-        allowNull: false,
       },
     },
     {
       freezeTableName: true,
       classMethods: {
-        associate({ customers, log_analyser_files, log_analyser_rule_sets }) {
-          log_analysers.hasMany(customers);
+        associate({ customers, log_analyser_files }) {
+          log_analysers.belongsTo(customers, {
+            as: 'customers',
+            foreignKey: 'customer',
+          });
           log_analysers.belongsTo(log_analyser_files, {
             as: 'log_analyser_files',
             foreignKey: 'source_files',
           });
-          log_analysers.belongsTo(log_analyser_rule_sets, {
-            as: 'log_analyser_rule_sets',
-            sourceKey: 'rule_set',
-          });
         },
       },
-    },
+    }
   );
   return log_analysers;
 };

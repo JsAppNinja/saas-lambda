@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false,
       },
-      chargebee_customer_id: {
+      external_subscription_id: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -17,13 +17,13 @@ module.exports = (sequelize, DataTypes) => {
       },
       product_plan: {
         type: DataTypes.INTEGER,
-        allowNull: false,
       },
     },
     {
       freezeTableName: true,
       classMethods: {
-        associate({ customers, product_plans }) {
+        associate({ organizations, customers, product_plans }) {
+          subscriptions.hasMany(organizations);
           subscriptions.hasMany(customers);
           subscriptions.belongsTo(product_plans, {
             as: 'product_plans',
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
           });
         },
       },
-    },
+    }
   );
   return subscriptions;
 };

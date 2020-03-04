@@ -9,17 +9,17 @@ module.exports = (sequelize, DataTypes) => {
       },
       amazon_id: {
         type: DataTypes.INTEGER,
-      },
-      role: {
-        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
       },
       customer: {
         type: DataTypes.INTEGER,
-        allowNull: false,
       },
       settings: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+      },
+      role: {
+        type: DataTypes.STRING,
       },
     },
     {
@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
           });
         },
       },
-    },
+    }
   );
   return customer_users;
 };

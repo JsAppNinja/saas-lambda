@@ -7,23 +7,28 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false,
       },
-      scope_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      product_plan: {
+        type: DataTypes.INTEGER,
       },
       scope_code: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: DataTypes.INTEGER,
       },
     },
     {
       freezeTableName: true,
       classMethods: {
-        associate({ product_plans }) {
-          product_scopes.hasMany(product_plans);
+        associate({ product_plans, scope_codes }) {
+          product_scopes.hasMany(product_plans, {
+            foreignKey: 'product_plan',
+            sourceKey: 'id',
+          });
+          product_scopes.belongsTo(scope_codes, {
+            as: 'scope_codes',
+            foreignKey: 'scope_code',
+          });
         },
       },
-    },
+    }
   );
   return product_scopes;
 };

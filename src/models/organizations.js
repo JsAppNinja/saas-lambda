@@ -14,22 +14,29 @@ module.exports = (sequelize, DataTypes) => {
       },
       settings: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+      },
+      subscription: {
+        type: DataTypes.INTEGER,
       },
     },
     {
       freezeTableName: true,
       classMethods: {
-        associate({ customers, settings }) {
+        associate({ customers, settings, subscriptions }) {
           organizations.hasMany(customers);
           organizations.belongsTo(settings, {
             as: 'settings',
             foreignKey: 'settings',
             sourceKey: 'id',
           });
+          organizations.belongsTo(subscriptions, {
+            as: 'subscriptions',
+            foreignKey: 'subscription',
+            sourceKey: 'id',
+          });
         },
       },
-    },
+    }
   );
   return organizations;
 };

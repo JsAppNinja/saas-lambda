@@ -13,53 +13,43 @@ module.exports = (sequelize, DataTypes) => {
       },
       organization: {
         type: DataTypes.INTEGER,
+      },
+      chargebee_customer_id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
+        unique: true,
       },
       subscription: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      users: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
-        allowNull: true,
       },
       settings: {
         type: DataTypes.INTEGER,
+      },
+      path: {
+        type: DataTypes.STRING,
         allowNull: false,
-      },
-      log_analysers: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
-        allowNull: true,
-      },
-      parent_customer: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      managed_customers: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
-        allowNull: true,
       },
     },
     {
       freezeTableName: true,
       classMethods: {
         associate({
-          customer_users, settings, log_analysers, subscriptions,
+          organizations,
+          customer_users,
+          settings,
+          log_analysers,
+          subscriptions,
         }) {
           customers.hasMany(customer_users);
-          customers.belongsTo(customer_users, {
-            as: 'customer_users',
-            foreignKey: 'users',
+          customers.hasMany(log_analysers);
+          customers.belongsTo(organizations, {
+            as: 'organizations',
+            foreignKey: 'organization',
             sourceKey: 'id',
           });
           customers.belongsTo(settings, {
             as: 'settings',
             foreignKey: 'settings',
-            sourceKey: 'id',
-          });
-          customers.belongsTo(log_analysers, {
-            as: 'log_analysers',
-            foreignKey: 'log_analysers',
             sourceKey: 'id',
           });
           customers.belongsTo(subscriptions, {
@@ -69,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
           });
         },
       },
-    },
+    }
   );
   return customers;
 };
