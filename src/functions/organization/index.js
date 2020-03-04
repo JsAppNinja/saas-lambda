@@ -12,7 +12,7 @@ const organizationsHandler = require('./handlers/organizations').handler;
 const organizationHandler = require('./handlers/organization').handler;
 const organizationCustomerHandler = require('./handlers/organizations').handler;
 
-module.exports.handler = async (event, context) => {
+module.exports.handler = async event => {
   const { path } = event;
 
   const requestSuccessResponse = successResponse({
