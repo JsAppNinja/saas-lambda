@@ -21,7 +21,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       regex: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
     },
     {
@@ -33,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
           settings.hasMany(customer_users);
         },
       },
-    },
+    }
   );
   return settings;
 };

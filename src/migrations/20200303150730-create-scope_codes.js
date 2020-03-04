@@ -1,11 +1,19 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('product_scopes', {
+    queryInterface.createTable('scope_codes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
+      },
+      scope_name: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      code: {
+        allowNull: false,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -18,6 +26,5 @@ module.exports = {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
     }),
-  down: (queryInterface, Sequelize) =>
-    queryInterface.dropTable('product_scopes'),
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('scope_codes'),
 };
