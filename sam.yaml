@@ -71,10 +71,10 @@ Resources:
             Path: ./augmentt/customer/{proxy+}
             Method: ANY
 
-  ServiceProvider:
+  Organization:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/functions/service_providers/index.handler
+      Handler: src/functions/organization/index.handler
       Runtime: nodejs10.x
       CodeUri: .
       MemorySize: 512
@@ -96,12 +96,12 @@ Resources:
         RootResource:
           Type: Api
           Properties:
-            Path: ./augmentt/service_providers
+            Path: ./augmentt/organization
             Method: ANY
         ProxyResource:
           Type: Api
           Properties:
-            Path: ./augmentt/service_providers/{proxy+}
+            Path: ./augmentt/organization/{proxy+}
             Method: ANY
 
   SecurityGroup:
