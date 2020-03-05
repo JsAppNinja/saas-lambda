@@ -1,7 +1,7 @@
 module.exports = {
-  ORGANIZATION: 'ORGANIZATION',
-  CUSTOMER: 'CUSTOMER',
-  SYSTEM: 'SYSTEM',
-  INFORMATION: 'INFORMATION',
-  PAYMENT: 'PAYMENT',
+  ORGANIZATION: '/augmentt/organization',
+  CUSTOMER: '/augmentt/customer',
+  SYSTEM: '/augmentt/system',
+  INFORMATION: '/augmentt/information',
+  PAYMENT: '/payment/webhook',
 };
