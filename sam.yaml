@@ -26,6 +26,13 @@ Resources:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
         - arn:aws:iam::aws:policy/AWSLambdaInvocation-DynamoDB
         - arn:aws:iam::aws:policy/AWSLambdaExecute
+      Environment:
+        Variables:
+          NODE_ENV: 'development'
+          DB_USER: 'root'
+          DB_PASSWORD: '127.0.0.1'
+          DB_HOSTNAME: 'jdbc:mysql://localhost/orders'
+          DB_NAME: 'augmentt_dev'
       Events:
         RootResource:
           Type: Api
