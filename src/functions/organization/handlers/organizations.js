@@ -14,7 +14,7 @@ module.exports.handler = async (event, eventRoute) => {
 
   const pattern = new UrlPattern(eventRoute);
   const endpointInfo = pattern.match(path);
-  console.log(endpointInfo); // eslint-disable-line no-console
+  console.log(path, endpointInfo); // eslint-disable-line no-console
 
   let responseData;
   let response;

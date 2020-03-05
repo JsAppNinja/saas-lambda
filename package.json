@@ -64,6 +64,12 @@
   },
   "lint-staged": {
     "src/**/*.{js,ts}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "lint-staged2": {
+    "src/**/*.{js,ts}": [
       "yarn lint",
       "prettier --write",
       "git add"
