@@ -24,7 +24,7 @@ module.exports.handler = async (event, eventRoute) => {
         attributes: ['id', 'organization_name', 'settings'],
       });
       response = successResponse({
-        message: 'We are getting your requested customer information!',
+        message: 'We are getting your requested organization information!',
         input: event,
         content: responseData,
       });
@@ -39,7 +39,7 @@ module.exports.handler = async (event, eventRoute) => {
         }
       );
       response = successResponse({
-        message: 'We are updating your requested customer information!',
+        message: 'We are updating your requested organization information!',
         input: event,
         content: responseData,
       });

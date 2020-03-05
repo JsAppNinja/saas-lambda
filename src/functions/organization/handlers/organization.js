@@ -24,22 +24,17 @@ module.exports.handler = async (event, eventRoute) => {
     case 'GET':
       responseData = await Organization.findByPk(orgId);
       response = successResponse({
-        message: `We are getting ${orgId} customer information!`,
+        message: `We are getting ${orgId} organization information!`,
         input: event,
         result: responseData,
       });
       return response;
     case 'POST':
-      responseData = await Organization.update(
-        { organization_name: 'new Organization Name' },
-        {
-          where: {
-            id: orgId,
-          },
-        }
-      );
+      responseData = await Organization.create({
+        organization_name: 'new Organization Name',
+      });
       response = successResponse({
-        message: 'We have updated your requested customer information!',
+        message: 'We have updated your requested organization information!',
         input: event,
         result: responseData,
       });
@@ -51,7 +46,7 @@ module.exports.handler = async (event, eventRoute) => {
         },
       });
       response = successResponse({
-        message: 'We have deleted your requested customer information!',
+        message: 'We have deleted your requested organization information!',
         input: event,
         content: responseData,
       });
