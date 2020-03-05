@@ -1,54 +1,66 @@
+const UrlPattern = require('url-pattern');
+
 const {
   successResponse,
   InvalidResponse,
 } = require('../../../utils/lambda-response');
 const models = require('../../../models');
 
-const Customer = models.customers;
-const Subscription = models.subscriptions;
-const CustomerUser = models.customer_users;
-const Setting = models.settings;
+const Organization = models.organizations;
 
-module.exports.handler = async (event, httpMethod) => {
-  const method = httpMethod;
-  switch (method) {
+module.exports.handler = async (event, eventRoute) => {
+  const { path } = event;
+  const { httpMethod } = event;
+
+  const pattern = new UrlPattern(eventRoute);
+  const endpointInfo = pattern.match(path);
+  console.log(path, endpointInfo); // eslint-disable-line no-console
+  const orgId = 2;
+
+  let responseData;
+  let response;
+
+  switch (httpMethod) {
     case 'GET':
-      const { customerId } = event;
-      // const oneCustomer = await Customer.findByPk(customerId);
-      const response1 = successResponse({
-        message: 'We are getting your requested customer information!',
+      responseData = await Organization.findByPk(orgId);
+      response = successResponse({
+        message: `We are getting ${orgId} customer information!`,
         input: event,
-        // content: oneCustomer,
+        result: responseData,
       });
-      return response1;
+      return response;
     case 'POST':
-      const result = await Customer.update(
-        { title: req.body.title },
-        { returning: true, where: { id: req.params.id } }
+      responseData = await Organization.update(
+        { organization_name: 'new Organization Name' },
+        {
+          where: {
+            id: orgId,
+          },
+        }
       );
-      const response2 = successResponse({
-        message: 'We are updating your requested customer information!',
+      response = successResponse({
+        message: 'We have updated your requested customer information!',
         input: event,
-        content: result,
+        result: responseData,
       });
-      return response2;
+      return response;
     case 'DELETE':
-      const isDeleted = await Customer.destroy({
+      responseData = await Organization.destroy({
         where: {
-          id: customerId,
+          id: orgId,
         },
       });
-      const response3 = successResponse({
-        message: 'We are deleting your requested customer information!',
+      response = successResponse({
+        message: 'We have deleted your requested customer information!',
         input: event,
-        content: isDeleted,
+        content: responseData,
       });
-      return response3;
+      return response;
     default:
-      const generalResponse = successResponse({
-        message: 'We are handling your requested customer information!',
+      response = InvalidResponse({
+        message: 'We can not handle your request!',
         input: event,
       });
-      return generalResponse;
+      return response;
   }
 };
