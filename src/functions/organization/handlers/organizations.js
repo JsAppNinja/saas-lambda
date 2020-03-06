@@ -31,6 +31,7 @@ module.exports.handler = async (event, eventRoute) => {
       return response;
     case 'PUT':
       responseData = await Organization.create({
+        id: 3,
         organization_name: 'new Organization Name',
       });
       response = successResponse({
