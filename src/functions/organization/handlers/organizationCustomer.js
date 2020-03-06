@@ -7,7 +7,7 @@ const {
 const models = require('../../../models');
 
 const Organization = models.organizations;
-const { Customer } = models;
+const Customer = models.customers;
 
 module.exports.handler = async (event, eventRoute) => {
   const { path } = event;

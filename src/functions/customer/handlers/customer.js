@@ -1,4 +1,9 @@
-const { successResponse, InvalidResponse } = require('../../../utils/lambda-response');
+const UrlPattern = require('url-pattern');
+
+const {
+  successResponse,
+  InvalidResponse,
+} = require('../../../utils/lambda-response');
 const models = require('../../../models');
 
 const Customer = models.customers;
@@ -6,46 +11,58 @@ const Subscription = models.subscriptions;
 const CustomerUser = models.customer_users;
 const Setting = models.settings;
 
-module.exports.handler = async (event, httpMethod) => {
-  const method = httpMethod;
-  switch (method) {
+module.exports.handler = async (event, eventRoute) => {
+  const { path, httpMethod } = event;
+
+  const pattern = new UrlPattern(eventRoute);
+  const endpointInfo = pattern.match(path);
+  console.log(path, endpointInfo); // eslint-disable-line no-console
+  const customerId = 2;
+
+  let responseData;
+  let response;
+
+  switch (httpMethod) {
     case 'GET':
-      const { customerId } = event;
-      // const oneCustomer = await Customer.findByPk(customerId);
-      const response1 = successResponse({
-        message: 'We are getting your requested customer information!',
+      responseData = await Customer.findByPk(customerId);
+      response = successResponse({
+        message: `We are getting ${customerId} customer information!`,
         input: event,
-        // content: oneCustomer,
+        result: responseData,
       });
-      return response1;
+      return response;
     case 'POST':
-      const result = await Customer.update(
-        { title: req.body.title },
-        { returning: true, where: { id: req.params.id } },
-      );
-      const response2 = successResponse({
-        message: 'We are updating your requested customer information!',
-        input: event,
-        content: result,
+      responseData = await Customer.create({
+        customer_name: 'new Customer',
+        organization: null,
+        chargebee_customer_id: 281,
+        subscription: 2,
+        settings: 3,
+        path: '1/2',
       });
-      return response2;
+      response = successResponse({
+        message: 'We have created new customer information!',
+        input: event,
+        result: responseData,
+      });
+      return response;
     case 'DELETE':
-      const isDeleted = await Customer.destroy({
+      responseData = await Customer.destroy({
         where: {
           id: customerId,
         },
       });
-      const response3 = successResponse({
-        message: 'We are deleting your requested customer information!',
+      response = successResponse({
+        message: 'We have deleted your requested customer information!',
         input: event,
-        content: isDeleted,
+        content: responseData,
       });
-      return response3;
+      return response;
     default:
-      const generalResponse = successResponse({
-        message: 'We are handling your requested customer information!',
+      response = InvalidResponse({
+        message: 'We can not handle your request!',
         input: event,
       });
-      return generalResponse;
+      return response;
   }
 };
