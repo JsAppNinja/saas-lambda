@@ -30,14 +30,12 @@ module.exports.handler = async (event, eventRoute) => {
       });
       return response;
     case 'POST':
-      responseData = await Organization.update(
-        { organization_name: 'new Organization' },
-        {
-          where: {
-            id: 2,
-          },
-        }
-      );
+      const responseData = await Organization.findByPk(orgId);
+      if (responseData) {
+        responseData.update({
+          organization_name: 'new Organization',
+        });
+      }
       response = successResponse({
         message: 'We have updated your requested organization information!',
         input: event,
