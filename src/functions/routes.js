@@ -1,5 +1,5 @@
 module.exports = {
-  ORGANIZATION: '/augmentt/organization',
+  ORGANIZATION: '/augmentt/organization(/*)',
   CUSTOMER: '/augmentt/customer',
   SYSTEM: '/augmentt/system',
   INFORMATION: '/augmentt/information',
