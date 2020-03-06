@@ -1,44 +1,46 @@
-const { AuthDeniedResponse } = require('../../utils/lambda-response');
+const {
+  successResponse,
+  ResourceNotFoundResponse,
+  AuthDeniedResponse,
+  InvalidResponse,
+} = require('../../utils/lambda-response');
 
-module.exports.handler = async (event) => {
-  const { headers } = event;
-  const { queryStringParameters } = event;
-  const { pathParameters } = event;
-  const { stageVariables } = event;
-
-  // Parse the input for the parameter values
-  const tmp = event.methodArn.split(':');
-  const apiGatewayArnTmp = tmp[5].split('/');
-  const awsAccountId = tmp[4];
-  const region = tmp[3];
-  const restApiId = apiGatewayArnTmp[0];
-  const stage = apiGatewayArnTmp[1];
-  const method = apiGatewayArnTmp[2];
-  const resource = '/';
-  if (apiGatewayArnTmp[3]) {
-    resource += apiGatewayArnTmp[3];
+module.exports.handler = async event => {
+  var token = event.authorizationToken;
+  let responseData, response;
+  switch (token) {
+    case 'allow':
+      responseData = await generatePolicy('user', 'Allow', event.methodArn);
+      response = successResponse({
+        message: 'Your authorization has been successfully verified!',
+        input: event,
+        content: responseData,
+      });
+      return;
+    case 'deny':
+      responseData = await generatePolicy('user', 'Deny', event.methodArn);
+      response = ResourceNotFoundResponse({
+        message: 'Your authorization request has been denied to this resource',
+        input: event,
+        content: responseData,
+      });
+      return;
+    case 'unauthorized':
+      response = AuthDeniedResponse({
+        message: 'You are not authorized to access to this resource',
+        input: event,
+      });
+      return response;
+    default:
+      response = InvalidResponse({
+        message: 'Invalid token',
+        input: event,
+      });
+      return response;
   }
-
-  /* Perform authorization to return the Allow policy for correct parameters and
-  the 'Unauthorized' error, otherwise. */
-  const authResponse = {};
-  const condition = {};
-  condition.IpAddress = {};
-
-  if (headers.HeaderAuth1 === 'headerValue1'
-      && queryStringParameters.QueryString1 === 'queryValue1'
-      && stageVariables.StageVar1 === 'stageValue1') {
-    return generateAllow('me', event.methodArn);
-  }
-  const response = AuthDeniedResponse({
-    message: 'You are not authorized to access to this resource',
-    input: event,
-  });
-  return response;
 };
 
-// Help function to generate an IAM policy
-const generatePolicy = function (principalId, effect, resource) {
+const generatePolicy = function(principalId, effect, resource) {
   const authResponse = {};
   authResponse.principalId = principalId;
   if (effect && resource) {
@@ -60,11 +62,33 @@ const generatePolicy = function (principalId, effect, resource) {
   };
   return authResponse;
 };
+// var authenticationData = {
+//   Username : 'username',
+//   Password : 'password',
+// };
+// var authenticationDetails = new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
+// var poolData = {
+//   UserPoolId : '...', // Your user pool id here
+//   ClientId : '...' // Your client id here
+// };
+// var userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(poolData);
+// var userData = {
+//   Username : 'username',
+//   Pool : userPool
+// };
+// var cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
+// cognitoUser.setAuthenticationFlowType(‘CUSTOM_AUTH’);
+// cognitoUser.authenticateUser(authenticationDetails, {
+//   onSuccess: function (result) {
+//     console.log('access token + ' + result.getAccessToken().getJwtToken());
+//   },
 
-const generateAllow = function (principalId, resource) {
-  return generatePolicy(principalId, 'Allow', resource);
-};
+//   customChallenge: function (challengeParameters) {
+//     //gather user responses in challengeResponses based on challengeParameters
+//     cognitoUser.sendCustomChallengeAnswer(challengeResponses, this);
+//   },
 
-const generateDeny = function (principalId, resource) {
-  return generatePolicy(principalId, 'Deny', resource);
-};
+//   onFailure: function(err) {
+//     alert(err);
+//   },
+// });
