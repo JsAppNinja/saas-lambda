@@ -14,7 +14,7 @@ module.exports.handler = async (event, eventRoute) => {
 
   const pattern = new UrlPattern(eventRoute);
   const endpointInfo = pattern.match(path);
-  console.log(path, endpointInfo); // eslint-disable-line no-console
+  console.log(path, endpointInfo, event); // eslint-disable-line no-console
 
   let responseData;
   let response;
@@ -31,8 +31,7 @@ module.exports.handler = async (event, eventRoute) => {
       return response;
     case 'PUT':
       responseData = await Organization.create({
-        id: 3,
-        organization_name: 'new Organization Name',
+        organization_name: 'New Organization Name',
       });
       response = successResponse({
         message: 'We have created a new organization information!',
