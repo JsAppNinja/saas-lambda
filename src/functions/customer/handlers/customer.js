@@ -32,14 +32,21 @@ module.exports.handler = async (event, eventRoute) => {
       });
       return response;
     case 'POST':
-      responseData = await Customer.create({
-        customer_name: 'new Customer',
-        organization: null,
-        chargebee_customer_id: 281,
-        subscription: 2,
-        settings: 3,
-        path: '1/2',
-      });
+      responseData = await Organization.update(
+        {
+          customer_name: 'new Customer',
+          organization: null,
+          chargebee_customer_id: 281,
+          subscription: 2,
+          settings: 3,
+          path: '1/2',
+        },
+        {
+          where: {
+            id: customerId,
+          },
+        }
+      );
       response = successResponse({
         message: 'We have created new customer information!',
         input: event,

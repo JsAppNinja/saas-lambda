@@ -30,9 +30,14 @@ module.exports.handler = async (event, eventRoute) => {
       });
       return response;
     case 'POST':
-      responseData = await Organization.create({
-        organization_name: 'new Organization Name',
-      });
+      responseData = await Organization.update(
+        { organization_name: 'new Organization' },
+        {
+          where: {
+            id: 2,
+          },
+        }
+      );
       response = successResponse({
         message: 'We have updated your requested organization information!',
         input: event,

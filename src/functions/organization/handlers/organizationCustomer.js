@@ -35,14 +35,16 @@ module.exports.handler = async (event, eventRoute) => {
       });
       return response;
     case 'PUT':
-      responseData = Customer.create({
-        customer_name: 'New Customer',
-        organization: orgId,
-        chargebee_customer_id: 354,
-        path: '1/2/3',
+      responseData = await Customer.create({
+        customer_name: 'new Customer',
+        organization: null,
+        chargebee_customer_id: 281,
+        subscription: 2,
+        settings: 3,
+        path: '1/2',
       });
       response = successResponse({
-        message: 'We have updated your requested customer information!',
+        message: 'We have created new customer information!',
         input: event,
         result: responseData,
       });
